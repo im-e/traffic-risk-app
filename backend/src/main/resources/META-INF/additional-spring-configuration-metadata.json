@@ -6,8 +6,13 @@
       "description": "The API key for weatherapi."
     },
     {
-      "name": "traffficapi.key",
+      "name": "tomtom.key",
       "type": "java.lang.String",
       "description": "The API key for TomTom's API."
+    },
+    {
+      "name": "openweatherapi.key",
+      "type": "java.lang.String",
+      "description": "Description for openweatherapi.key."
     }
   ] }
