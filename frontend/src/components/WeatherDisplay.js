@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './WeatherDisplay.css';
 
+import { Card, Icon, Image } from 'semantic-ui-react';
+
 const WeatherDisplay = () => {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ const WeatherDisplay = () => {
     };
 
     return (
-        <div className="weather-display">
+        <div className="weather-display-wrapper">
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -51,19 +53,34 @@ const WeatherDisplay = () => {
                 <button type="submit">Get Weather</button>
             </form>
 
-            <h2>Weather Information</h2>
             {loading && <p>Loading weather data...</p>}
             {error && <p>{error}</p>}
             {weather && (
-                <div>
-                    <h3>{weather.location.name}, {weather.location.country}</h3>
-                    <p>Temperature: {weather.current.temp_c}°C / {weather.current.temp_f}°F</p>
-                    <p>Condition: {weather.current.condition.text}</p>
-                    <img src={weather.current.condition.icon} alt="Weather condition"/>
-                    <p>Wind: {weather.current.wind_kph} km/h, {weather.current.wind_dir}</p>
-                    <p>Humidity: {weather.current.humidity}%</p>
-                    <p>Feels like: {weather.current.feelslike_c}°C / {weather.current.feelslike_f}°F</p>
-                </div>
+
+                <Card>
+                    <Card.Content>
+                        <Card.Header>Weather Information</Card.Header>
+                    </Card.Content>
+                    <Card.Content>
+                        <Card.Header>{weather.location.name}, {weather.location.country}</Card.Header>
+                        <Card.Meta>
+                            <span className='date'>{weather.location.localtime}</span>
+                        </Card.Meta>
+                        <Card.Description>
+                            <p>
+                                Condition: {weather.current.condition.text}
+                                <Image src={weather.current.condition.icon} size='mini' spaced='left' />
+                            </p>
+                            <p>Temperature: {weather.current.temp_c}°C / {weather.current.temp_f}°F</p>
+                            <p>Wind: {weather.current.wind_kph} km/h, {weather.current.wind_dir}</p>
+                            <p>Humidity: {weather.current.humidity}%</p>
+                            <p>Feels like: {weather.current.feelslike_c}°C / {weather.current.feelslike_f}°F</p>
+                        </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Icon name='cloud' /> {weather.current.cloud} % cloud cover
+                    </Card.Content>
+                </Card>
             )}
         </div>
     );
