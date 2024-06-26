@@ -47,14 +47,4 @@ public class GeoLocation {
         this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return "GeoLocation{" +
-                "zip='" + zip + '\'' +
-                ", name='" + name + '\'' +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                ", country='" + country + '\'' +
-                '}';
-    }
 }
