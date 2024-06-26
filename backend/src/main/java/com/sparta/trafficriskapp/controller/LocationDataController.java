@@ -37,19 +37,19 @@ public class LocationDataController {
     }
 
     @GetMapping("/location")
-    public GeoLocation getLocation(@RequestParam String zip, @RequestParam String countryCode) {
-        return geoLocService.getCurrentLocation(zip, countryCode);
+    public GeoLocation getLocation(@RequestParam String zip) {
+        return geoLocService.getCurrentLocation(zip);
     }
 
     @GetMapping("/weather")
-    public Weather getDataFromLocation(@RequestParam String zip, @RequestParam String countryCode) {
-        GeoLocation location = geoLocService.getCurrentLocation(zip, countryCode);
+    public Weather getDataFromLocation(@RequestParam String zip) {
+        GeoLocation location = geoLocService.getCurrentLocation(zip);
         return weatherService.getCurrentWeather(location.getZip());
     }
 
     @GetMapping("/image")
-    public ResponseEntity<byte[]> getImage(@RequestParam String zip, @RequestParam String countryCode) {
-        GeoLocation location = geoLocService.getCurrentLocation(zip, countryCode);
+    public ResponseEntity<byte[]> getImage(@RequestParam String zip) {
+        GeoLocation location = geoLocService.getCurrentLocation(zip);
         byte[] imageBytes = mapsService.getImage(location.getLat(), location.getLon());
 
         HttpHeaders headers = new HttpHeaders();
@@ -59,11 +59,8 @@ public class LocationDataController {
     }
 
     @GetMapping("/incidents")
-    public Incidents getIncidents(@RequestParam String zip,
-                                  @RequestParam String countryCode,
-                                  @RequestParam double distance) throws UnsupportedEncodingException {
-
-        GeoLocation location = geoLocService.getCurrentLocation(zip, countryCode);
+    public Incidents getIncidents(@RequestParam String zip, @RequestParam double distance) {
+        GeoLocation location = geoLocService.getCurrentLocation(zip);
         return trafficService.getIncidents(location.getLat(), location.getLon(), distance);
     }
 

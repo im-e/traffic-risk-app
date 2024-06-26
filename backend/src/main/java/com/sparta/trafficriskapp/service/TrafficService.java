@@ -23,7 +23,7 @@ public class TrafficService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public Incidents getIncidents(double lat, double lon, double distance) throws UnsupportedEncodingException {
+    public Incidents getIncidents(double lat, double lon, double distance) {
         String bbox = calculateBoundingBox(lat, lon, distance);
 
         return webClient.get()
