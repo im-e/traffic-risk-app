@@ -1,6 +1,7 @@
 package com.sparta.trafficriskapp.controller;
 
 import com.sparta.trafficriskapp.model.DTO.GeoLocation;
+import com.sparta.trafficriskapp.model.DTO.Incidents;
 import com.sparta.trafficriskapp.model.DTO.Weather;
 import com.sparta.trafficriskapp.service.GeoLocService;
 import com.sparta.trafficriskapp.service.MapsService;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
 
@@ -59,12 +59,12 @@ public class LocationDataController {
     }
 
     @GetMapping("/incidents")
-    public String getIncidents(@RequestParam String zip,
-                               @RequestParam String countryCode,
-                               @RequestParam double distance) throws UnsupportedEncodingException {
+    public Incidents getIncidents(@RequestParam String zip,
+                                  @RequestParam String countryCode,
+                                  @RequestParam double distance) throws UnsupportedEncodingException {
 
         GeoLocation location = geoLocService.getCurrentLocation(zip, countryCode);
-        return trafficService.getIncidentDetails(location.getLat(), location.getLon(), distance);
+        return trafficService.getIncidents(location.getLat(), location.getLon(), distance);
     }
 
 }
