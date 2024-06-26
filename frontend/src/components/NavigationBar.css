@@ -1,0 +1,24 @@
+/* Hide the desktop menu on mobile devices */
+.mobile-menu {
+    display: none;
+}
+
+/* Show the desktop menu only on larger screens */
+@media (min-width: 768px) {
+    .desktop-menu {
+        display: flex;
+    }
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* Show the mobile menu only on smaller screens */
+@media (max-width: 767px) {
+    .desktop-menu {
+        display: none;
+    }
+    .mobile-menu {
+        display: flex;
+    }
+}
