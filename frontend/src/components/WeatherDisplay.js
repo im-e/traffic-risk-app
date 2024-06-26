@@ -16,13 +16,14 @@ const WeatherDisplay = () => {
             setWeather(response.data);
             setLoading(false);
         } catch (err) {
-            setError('Failed to fetch weather data');
+            console.error('Error details:', err.response ? err.response.data : err.message);
+            setError('Failed to fetch weather data: ' + (err.response ? err.response.data : err.message));
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchWeather('10001', 'US'); // change this to any default location
+        fetchWeather('10001', 'US');
     }, []);
 
     const handleSubmit = (e) => {
@@ -33,13 +34,19 @@ const WeatherDisplay = () => {
     };
 
     return (
-        <div className ="weather-display">
+        <div className="weather-display">
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     value={zip}
                     onChange={(e) => setZip(e.target.value)}
-                    placeholder="Enter location"
+                    placeholder="Enter ZIP code"
+                />
+                <input
+                    type="text"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    placeholder="Enter country code (e.g., US)"
                 />
                 <button type="submit">Get Weather</button>
             </form>
