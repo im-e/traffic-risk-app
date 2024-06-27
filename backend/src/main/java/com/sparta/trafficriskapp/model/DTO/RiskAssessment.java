@@ -5,6 +5,15 @@ public class RiskAssessment {
     private String Text;
     private double distance;
     private GeoLocation geoLocation;
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public double getLevel() {
         return Level;
@@ -38,7 +47,7 @@ public class RiskAssessment {
         this.geoLocation = geoLocation;
     }
 
-    public static RiskAssessment getRiskAssessment(GeoLocation geoLocation, double distance, double riskLevel) {
+    public static RiskAssessment getRiskAssessment(GeoLocation geoLocation, byte[] image,  double distance, double riskLevel) {
         String riskText = switch ((int) (riskLevel * 4)) {
             case 0 -> "Below Average Risk";
             case 1 -> "Average Risk";
@@ -51,6 +60,7 @@ public class RiskAssessment {
         riskAssessment.setGeoLocation(geoLocation);
         riskAssessment.setDistance(distance);
         riskAssessment.setLevel(riskLevel);
+        riskAssessment.setImage(image);
 
 
         riskAssessment.setText(riskText);

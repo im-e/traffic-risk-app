@@ -2,11 +2,9 @@ package com.sparta.trafficriskapp.controller;
 
 import com.sparta.trafficriskapp.model.DTO.GeoLocation;
 import com.sparta.trafficriskapp.model.DTO.Incidents;
+import com.sparta.trafficriskapp.model.DTO.RiskAssessment;
 import com.sparta.trafficriskapp.model.DTO.Weather;
-import com.sparta.trafficriskapp.service.GeoLocService;
-import com.sparta.trafficriskapp.service.MapsService;
-import com.sparta.trafficriskapp.service.TrafficService;
-import com.sparta.trafficriskapp.service.WeatherService;
+import com.sparta.trafficriskapp.service.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.UnsupportedEncodingException;
 
 
 @RestController
@@ -25,15 +21,18 @@ public class LocationDataController {
     private final WeatherService weatherService;
     private final MapsService mapsService;
     private final TrafficService trafficService;
+    private final RiskAssessmentService riskAssessmentService;
 
     public LocationDataController(GeoLocService geoLocService,
                                   WeatherService weatherService,
                                   MapsService mapsService,
-                                  TrafficService trafficService) {
+                                  TrafficService trafficService,
+                                  RiskAssessmentService riskAssessmentService) {
         this.geoLocService = geoLocService;
         this.weatherService = weatherService;
         this.mapsService = mapsService;
         this.trafficService = trafficService;
+        this.riskAssessmentService = riskAssessmentService;
     }
 
     @GetMapping("/location")
@@ -48,9 +47,9 @@ public class LocationDataController {
     }
 
     @GetMapping("/image")
-    public ResponseEntity<byte[]> getImage(@RequestParam String zip) {
+    public ResponseEntity<byte[]> getImage(@RequestParam String zip, @RequestParam double distance) {
         GeoLocation location = geoLocService.getCurrentLocation(zip);
-        byte[] imageBytes = mapsService.getImage(location.getLat(), location.getLon());
+        byte[] imageBytes = mapsService.getImage(location.getLat(), location.getLon(), distance);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);  // or the correct image MIME type
@@ -62,6 +61,17 @@ public class LocationDataController {
     public Incidents getIncidents(@RequestParam String zip, @RequestParam double distance) {
         GeoLocation location = geoLocService.getCurrentLocation(zip);
         return trafficService.getIncidents(location.getLat(), location.getLon(), distance);
+    }
+
+    @GetMapping("/risk")
+    public RiskAssessment getAssessment(@RequestParam String zip, @RequestParam double distance)
+    {
+        GeoLocation location = geoLocService.getCurrentLocation(zip);
+        Incidents incidents = trafficService.getIncidents(location.getLat(), location.getLon(), distance);
+        Weather weather = weatherService.getCurrentWeather(location.getZip());
+        byte[] image = mapsService.getImage(location.getLat(), location.getLon(), distance);
+        return riskAssessmentService.calculateRiskAssessment
+                (location, incidents, weather, image, distance);
     }
 
 }

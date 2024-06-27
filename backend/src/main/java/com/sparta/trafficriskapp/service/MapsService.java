@@ -2,9 +2,7 @@ package com.sparta.trafficriskapp.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class MapsService {
@@ -20,16 +18,26 @@ public class MapsService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public byte[] getImage(double latitude, double longitude){
+    public byte[] getImage(double latitude, double longitude, double distance){
 
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/staticimage")
                         .queryParam("center", longitude + "," + latitude)
+                        .queryParam("zoom", calculateZoom(distance))
                         .queryParam("key", apiKey)
                         .build())
                 .retrieve()
                 .bodyToMono(byte[].class)
                 .block();
+    }
+
+    public static int calculateZoom(double distance)
+    {
+        if(distance >= 40) return 10;
+        else if(distance > 30) return 11;
+        else if(distance > 20) return 12;
+        else if(distance > 10) return 13;
+        else return 14;
     }
 }
