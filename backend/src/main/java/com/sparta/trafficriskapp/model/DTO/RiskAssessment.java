@@ -4,19 +4,36 @@ public class RiskAssessment {
     private double riskValue;
     private String riskText;
     private int averageMiles;
-    private GeoLocation geoLocation;
+    private int daysOfRental;
+
     private int customerAge;
-    private Weather currentWeather;
-    private byte[] image;
     private int customerYearsExp;
 
-    public RiskAssessment(double riskValue, String riskText, int averageMiles, GeoLocation geoLocation, int customerAge, int customerYearsExp) {
+    private GeoLocation geoLocation;
+    private Weather currentWeather;
+    private byte[] image;
+
+    public RiskAssessment(double riskValue, String riskText, int averageMiles, int daysOfRental, int customerAge, int customerYearsExp, GeoLocation geoLocation, Weather currentWeather, byte[] image) {
         this.riskValue = riskValue;
         this.riskText = riskText;
         this.averageMiles = averageMiles;
-        this.geoLocation = geoLocation;
+        this.daysOfRental = daysOfRental;
+
         this.customerAge = customerAge;
         this.customerYearsExp = customerYearsExp;
+
+        this.geoLocation = geoLocation;
+        this.currentWeather = currentWeather;
+        this.image = image;
+
+    }
+
+    public int getDaysOfRental() {
+        return daysOfRental;
+    }
+
+    public void setDaysOfRental(int daysOfRental) {
+        this.daysOfRental = daysOfRental;
     }
 
     public int getCustomerAge() {
@@ -34,8 +51,6 @@ public class RiskAssessment {
     public void setCustomerYearsExp(int customerYearsExp) {
         this.customerYearsExp = customerYearsExp;
     }
-
-
 
     public Weather getCurrentWeather() {
         return currentWeather;

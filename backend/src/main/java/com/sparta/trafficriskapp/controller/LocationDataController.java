@@ -48,9 +48,8 @@ public class LocationDataController {
 
     @GetMapping("/image")
     public ResponseEntity<byte[]> getImage(@RequestParam String zip, @RequestParam int milesPerDay) {
-        int distance = calculateDriveRange(milesPerDay);
         GeoLocation location = geoLocService.getCurrentLocation(zip);
-        byte[] imageBytes = mapsService.getImage(location.getLat(), location.getLon(), distance);
+        byte[] imageBytes = mapsService.getImage(location.getLat(), location.getLon(), milesPerDay);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);  // or the correct image MIME type
@@ -59,40 +58,22 @@ public class LocationDataController {
     }
 
     @GetMapping("/incidents")
-    public Incidents getIncidents(@RequestParam String zip, @RequestParam int distance) {
+    public Incidents getIncidents(@RequestParam String zip, @RequestParam int milesPerDay) {
         GeoLocation location = geoLocService.getCurrentLocation(zip);
-        return trafficService.getIncidents(location.getLat(), location.getLon(), distance);
+        return trafficService.getIncidents(location.getLat(), location.getLon(), milesPerDay);
     }
 
     @GetMapping("/risk")
     public RiskAssessment getAssessment(
-            @RequestParam String zip,@RequestParam int milesPerDay,
-            @RequestParam int yearsExp,@RequestParam int age)
+            @RequestParam String zip, @RequestParam int milesPerDay,
+            @RequestParam int days,  @RequestParam int yearsExp,
+            @RequestParam int age)
     {
-        int distanceRange = calculateDriveRange(milesPerDay);
         GeoLocation location = geoLocService.getCurrentLocation(zip);
-        Incidents incidents = trafficService.getIncidents(location.getLat(), location.getLon(), distanceRange);
+        Incidents incidents = trafficService.getIncidents(location.getLat(), location.getLon(), milesPerDay);
         Weather weather = weatherService.getCurrentWeather(location.getZip());
-        byte[] image = mapsService.getImage(location.getLat(), location.getLon(), distanceRange);
-        return riskAssessmentService.calculateRiskAssessment(location, incidents, weather, image, distanceRange, age, yearsExp);
-    }
-
-    private static final int MIN_MILES = 0;
-    private static final int MAX_MILES = 74;
-    private static final int MIN_RANGE = 5;
-    private static final int MAX_RANGE = 45;
-
-    public int calculateDriveRange(int milesPerDay) {
-
-        if (milesPerDay < MIN_MILES) {
-            milesPerDay = MIN_MILES;
-        } else if (milesPerDay > MAX_MILES) {
-            milesPerDay = MAX_MILES;
-        }
-
-        double normalized = (double)(milesPerDay - MIN_MILES) / (MAX_MILES - MIN_MILES);
-
-        return  (int)(normalized * (MAX_RANGE - MIN_RANGE)) + MIN_RANGE;
+        byte[] image = mapsService.getImage(location.getLat(), location.getLon(), milesPerDay);
+        return riskAssessmentService.calculateRiskAssessment(location, incidents, weather, image, milesPerDay, days, age, yearsExp);
     }
 
 }
