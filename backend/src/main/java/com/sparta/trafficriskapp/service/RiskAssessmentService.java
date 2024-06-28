@@ -13,8 +13,7 @@ public class RiskAssessmentService {
 
     public RiskAssessment calculateRiskAssessment(GeoLocation geoLocation, Incidents incidents,
                                                   Weather currentWeather, byte[] image,
-                                                  int distance, int age, int yearsExp) {
-
+                                                  int distance, int days, int age, int yearsExp) {
         double riskLevel = 0;
         double distanceMultiplier;
         double incidentRiskLevel = 0.01;
@@ -40,7 +39,7 @@ public class RiskAssessmentService {
             default -> "Dangerous Risk";
         };
 
-        return new RiskAssessment(riskLevel, riskText, distance, geoLocation, age, yearsExp);
+        return new RiskAssessment(riskLevel, riskText, distance, age, yearsExp, days, geoLocation, currentWeather, image);
     }
 
 }

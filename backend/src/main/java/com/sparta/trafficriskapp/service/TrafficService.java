@@ -39,10 +39,17 @@ public class TrafficService {
                 .block();
     }
 
-    public static String calculateBoundingBox(double latitude, double longitude, int distance) {
-        //The maximum area of a bounding box is 10'000 km2
-        double latDiff = distance / 111.0;
-        double lonDiff = distance / (111.0 * Math.cos(Math.toRadians(latitude)));
+    public static String calculateBoundingBox(double latitude, double longitude, int distanceInMiles) {
+        // Convert miles to kilometers
+        double distanceInKm = distanceInMiles * 1.60934;
+
+        if(distanceInKm >= 50) {
+            distanceInKm = 49;
+        }
+
+        // Calculate latitude and longitude differences
+        double latDiff = distanceInKm / 111.0;
+        double lonDiff = distanceInKm / (111.0 * Math.cos(Math.toRadians(latitude)));
 
         double minLat = latitude - latDiff;
         double maxLat = latitude + latDiff;
