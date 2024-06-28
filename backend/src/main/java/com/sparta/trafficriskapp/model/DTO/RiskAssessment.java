@@ -1,0 +1,87 @@
+package com.sparta.trafficriskapp.model.DTO;
+
+public class RiskAssessment {
+    private double riskValue;
+    private String riskText;
+    private int averageMiles;
+    private GeoLocation geoLocation;
+    private int customerAge;
+    private Weather currentWeather;
+    private byte[] image;
+    private int customerYearsExp;
+
+    public RiskAssessment(double riskValue, String riskText, int averageMiles, GeoLocation geoLocation, int customerAge, int customerYearsExp) {
+        this.riskValue = riskValue;
+        this.riskText = riskText;
+        this.averageMiles = averageMiles;
+        this.geoLocation = geoLocation;
+        this.customerAge = customerAge;
+        this.customerYearsExp = customerYearsExp;
+    }
+
+    public int getCustomerAge() {
+        return customerAge;
+    }
+
+    public void setCustomerAge(int customerAge) {
+        this.customerAge = customerAge;
+    }
+
+    public int getCustomerYearsExp() {
+        return customerYearsExp;
+    }
+
+    public void setCustomerYearsExp(int customerYearsExp) {
+        this.customerYearsExp = customerYearsExp;
+    }
+
+
+
+    public Weather getCurrentWeather() {
+        return currentWeather;
+    }
+
+    public void setCurrentWeather(Weather currentWeather) {
+        this.currentWeather = currentWeather;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public double getRiskValue() {
+        return riskValue;
+    }
+
+    public void setRiskValue(double riskValue) {
+        this.riskValue = riskValue;
+    }
+
+    public String getRiskText() {
+        return riskText;
+    }
+
+    public void setRiskText(String riskText) {
+        this.riskText = riskText;
+    }
+
+    public int getAverageMiles() {
+        return averageMiles;
+    }
+
+    public void setAverageMiles(int averageMiles) {
+        this.averageMiles = averageMiles;
+    }
+
+    public GeoLocation getGeoLocation() {
+        return geoLocation;
+    }
+
+    public void setGeoLocation(GeoLocation geoLocation) {
+        this.geoLocation = geoLocation;
+    }
+}
