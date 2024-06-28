@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import WeatherDisplay from './components/WeatherDisplay';
+import NavigationBar from "./components/NavigationBar";
+import LocationImage from './components/LocationImage';
+import TrafficIncidents from './components/TrafficIncidents';
+import {Container} from "semantic-ui-react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Container className="App">
+        <NavigationBar/>
+        <WeatherDisplay/>
+          <LocationImage zip="10001" countryCode="US" />
+          <TrafficIncidents zip="10001" countryCode="US" distance={10} />
+      </Container>
   );
 }
 

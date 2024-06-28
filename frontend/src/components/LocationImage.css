@@ -1,0 +1,53 @@
+.location-image-wrapper {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px; /* Add some space between the weather display and the map */
+}
+
+.location-image-card {
+    width: 100%;
+    max-width: 500px; /* Adjust this value as needed */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.location-image-card .header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.location-image-card .content {
+    padding: 20px;
+}
+
+.location-image-card .image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.location-image-card .extra {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-top: 1px solid #e9ecef;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.location-image-card .ui.loader {
+    margin-top: 20px;
+}
+
+.location-image-card .error {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+}
