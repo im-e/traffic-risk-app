@@ -22,11 +22,11 @@ public class GeoLocService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public GeoLocation getCurrentLocation(String zip, String countryCode) {
+    public GeoLocation getCurrentLocation(String zip) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/zip")
-                        .queryParam("zip", zip + ',' + countryCode)
+                        .queryParam("zip", zip + "," + "US")
                         .queryParam("appid", apiKey)
                         .build())
                 .retrieve()

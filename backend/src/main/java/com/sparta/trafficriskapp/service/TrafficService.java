@@ -15,22 +15,23 @@ public class TrafficService {
     @Value("${tomtom.key}")
     private String apiKey;
 
-    private static final String BASE_URL = "https://api.tomtom.com/traffic/services/5";
+    private static final String BASE_URL = "https://api.tomtom.com/traffic";
     private static final String FIELDS = "{incidents{type,properties{id,iconCategory,magnitudeOfDelay,events{description,code,iconCategory},startTime,endTime,from,to,length,delay,roadNumbers,timeValidity,probabilityOfOccurrence,numberOfReports,lastReportTime}}}";
-
+    private static final String VERSION = "/5";
 
     public TrafficService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public Incidents getIncidents(double lat, double lon, double distance) throws UnsupportedEncodingException {
+    public Incidents getIncidents(double lat, double lon, int distance) {
         String bbox = calculateBoundingBox(lat, lon, distance);
 
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/incidentDetails")
+                        .path("/services" + VERSION + "/incidentDetails")
                         .queryParam("bbox", bbox)
                         .queryParam("fields", FIELDS)
+                        .queryParam("timeValidityFilter", "present,future")
                         .queryParam("key", apiKey)
                         .build())
                 .retrieve()
@@ -38,10 +39,17 @@ public class TrafficService {
                 .block();
     }
 
+    public static String calculateBoundingBox(double latitude, double longitude, int distanceInMiles) {
+        // Convert miles to kilometers
+        double distanceInKm = distanceInMiles * 1.60934;
 
-    public static String calculateBoundingBox(double latitude, double longitude, double distance) {
-        double latDiff = distance / 111.0;
-        double lonDiff = distance / (111.0 * Math.cos(Math.toRadians(latitude)));
+        if(distanceInKm >= 50) {
+            distanceInKm = 49;
+        }
+
+        // Calculate latitude and longitude differences
+        double latDiff = distanceInKm / 111.0;
+        double lonDiff = distanceInKm / (111.0 * Math.cos(Math.toRadians(latitude)));
 
         double minLat = latitude - latDiff;
         double maxLat = latitude + latDiff;
