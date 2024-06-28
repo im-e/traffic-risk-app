@@ -23,7 +23,7 @@ public class TrafficService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public Incidents getIncidents(double lat, double lon, double distance) {
+    public Incidents getIncidents(double lat, double lon, int distance) {
         String bbox = calculateBoundingBox(lat, lon, distance);
 
         return webClient.get()
@@ -39,7 +39,7 @@ public class TrafficService {
                 .block();
     }
 
-    public static String calculateBoundingBox(double latitude, double longitude, double distance) {
+    public static String calculateBoundingBox(double latitude, double longitude, int distance) {
         //The maximum area of a bounding box is 10'000 km2
         double latDiff = distance / 111.0;
         double lonDiff = distance / (111.0 * Math.cos(Math.toRadians(latitude)));

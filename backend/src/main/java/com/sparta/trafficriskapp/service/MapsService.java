@@ -18,7 +18,7 @@ public class MapsService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public byte[] getImage(double latitude, double longitude, double distance){
+    public byte[] getImage(double latitude, double longitude, int distance){
 
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder

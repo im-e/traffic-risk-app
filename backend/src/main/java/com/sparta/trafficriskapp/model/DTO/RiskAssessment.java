@@ -1,11 +1,49 @@
 package com.sparta.trafficriskapp.model.DTO;
 
 public class RiskAssessment {
-    private double Level;
-    private String Text;
-    private double distance;
+    private double riskValue;
+    private String riskText;
+    private int averageMiles;
     private GeoLocation geoLocation;
+    private int customerAge;
+    private Weather currentWeather;
     private byte[] image;
+    private int customerYearsExp;
+
+    public RiskAssessment(double riskValue, String riskText, int averageMiles, GeoLocation geoLocation, int customerAge, int customerYearsExp) {
+        this.riskValue = riskValue;
+        this.riskText = riskText;
+        this.averageMiles = averageMiles;
+        this.geoLocation = geoLocation;
+        this.customerAge = customerAge;
+        this.customerYearsExp = customerYearsExp;
+    }
+
+    public int getCustomerAge() {
+        return customerAge;
+    }
+
+    public void setCustomerAge(int customerAge) {
+        this.customerAge = customerAge;
+    }
+
+    public int getCustomerYearsExp() {
+        return customerYearsExp;
+    }
+
+    public void setCustomerYearsExp(int customerYearsExp) {
+        this.customerYearsExp = customerYearsExp;
+    }
+
+
+
+    public Weather getCurrentWeather() {
+        return currentWeather;
+    }
+
+    public void setCurrentWeather(Weather currentWeather) {
+        this.currentWeather = currentWeather;
+    }
 
     public byte[] getImage() {
         return image;
@@ -15,28 +53,28 @@ public class RiskAssessment {
         this.image = image;
     }
 
-    public double getLevel() {
-        return Level;
+    public double getRiskValue() {
+        return riskValue;
     }
 
-    public void setLevel(double level) {
-        this.Level = level;
+    public void setRiskValue(double riskValue) {
+        this.riskValue = riskValue;
     }
 
-    public String getText() {
-        return Text;
+    public String getRiskText() {
+        return riskText;
     }
 
-    public void setText(String text) {
-        this.Text = text;
+    public void setRiskText(String riskText) {
+        this.riskText = riskText;
     }
 
-    public double getDistance() {
-        return distance;
+    public int getAverageMiles() {
+        return averageMiles;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setAverageMiles(int averageMiles) {
+        this.averageMiles = averageMiles;
     }
 
     public GeoLocation getGeoLocation() {
@@ -45,25 +83,5 @@ public class RiskAssessment {
 
     public void setGeoLocation(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
-    }
-
-    public static RiskAssessment getRiskAssessment(GeoLocation geoLocation, byte[] image,  double distance, double riskLevel) {
-        String riskText = switch ((int) (riskLevel * 4)) {
-            case 0 -> "Below Average Risk";
-            case 1 -> "Average Risk";
-            case 2 -> "Above Average Risk";
-            case 3 -> "High Risk";
-            default -> "Dangerous Risk";
-        };
-
-        RiskAssessment riskAssessment = new RiskAssessment();
-        riskAssessment.setGeoLocation(geoLocation);
-        riskAssessment.setDistance(distance);
-        riskAssessment.setLevel(riskLevel);
-        riskAssessment.setImage(image);
-
-
-        riskAssessment.setText(riskText);
-        return riskAssessment;
     }
 }
