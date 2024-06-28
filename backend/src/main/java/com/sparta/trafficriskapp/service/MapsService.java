@@ -35,11 +35,12 @@ public class MapsService {
     public static int calculateZoom(double distance)
     {
         //in miles
-        if(distance >= 80) return 10;
-        else if(distance >= 60) return 11;
-        else if(distance >= 37) return 12;
-        else if(distance >= 20) return 13;
-        else if(distance >= 8) return 14;
-        else return 15;
+        if (distance >= 100) return 7;
+        else if(distance >= 80) return 8;
+        else if(distance >= 60) return 9;
+        else if(distance >= 37) return 10;
+        else if(distance >= 20) return 11;
+        else if(distance >= 8) return 12;
+        else return 13;
     }
 }
