@@ -25,7 +25,7 @@ const WeatherDisplay = () => {
     };
 
     useEffect(() => {
-        fetchWeather('10001', 'US');
+        fetchWeather('90251', 'US');
     }, []);
 
     const handleSubmit = (e) => {

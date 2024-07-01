@@ -1,8 +1,17 @@
-/* Hide the desktop menu on mobile devices */
-.mobile-menu {
-    display: none;
+.ui.menu {
+    min-height: 30px !important;
 }
 
+/* Adjust logo */
+.ui.menu .item img.logo {
+    width: 80px !important;  /* Adjust this value as needed */
+    height: auto !important;
+}
+
+.ui.container {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
 /* Show the desktop menu only on larger screens */
 @media (min-width: 768px) {
     .desktop-menu {
@@ -13,12 +22,4 @@
     }
 }
 
-/* Show the mobile menu only on smaller screens */
-@media (max-width: 767px) {
-    .desktop-menu {
-        display: none;
-    }
-    .mobile-menu {
-        display: flex;
-    }
-}
+

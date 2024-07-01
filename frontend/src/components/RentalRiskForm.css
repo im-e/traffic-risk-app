@@ -1,0 +1,36 @@
+.rental-form-wrapper {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 20px;
+}
+
+.rental-form-wrapper h2, .rental-form-wrapper h3 {
+    margin-bottom: 20px;
+}
+
+.rental-form-wrapper .ui.card {
+    width: 100%;
+    max-width: 600px;
+}
+
+.rental-form-wrapper .ui.form .field > label {
+    font-weight: bold;
+}
+
+.rental-form-wrapper .ui.form input[type="text"],
+.rental-form-wrapper .ui.form input[type="number"] {
+    border-radius: 4px;
+}
+
+.rental-form-wrapper .ui.primary.button {
+    background-color: #007bff;
+    margin-top: 20px;
+}
+
+.rental-form-wrapper .error-message {
+    color: red;
+    margin-top: 20px;
+}

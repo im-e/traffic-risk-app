@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, List, Message, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 
-const TrafficIncidents = ({ zip, countryCode, distance }) => {
+const TrafficIncidents = ({ zip, milesPerDay }) => {
     const [incidents, setIncidents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -12,10 +12,16 @@ const TrafficIncidents = ({ zip, countryCode, distance }) => {
             try {
                 setLoading(true);
                 setError(null);
+
+                // Log request parameters
+                console.log('Requesting incidents for:', { zip, milesPerDay });
                 const response = await axios.get('/incidents', {
-                    params: { zip, countryCode, distance }
+                    params: { zip, milesPerDay }
                 });
-                setIncidents(response.data);
+                // Log response data
+                console.log('Response data:', response.data);
+                // Access the incidents property from the response
+                setIncidents(response.data.incidents);
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching incidents:', err);
@@ -25,14 +31,14 @@ const TrafficIncidents = ({ zip, countryCode, distance }) => {
         };
 
         fetchIncidents();
-    }, [zip, countryCode, distance]);
+    }, [zip,milesPerDay]);
 
     return (
         <Card fluid>
             <Card.Content>
                 <Card.Header>Traffic Incidents</Card.Header>
                 <Card.Meta>
-                    Within {distance} km of {zip}, {countryCode}
+                    Within the {zip} zipcode, based on a {milesPerDay} miles per day average
                 </Card.Meta>
                 <Card.Description>
                     {loading && <Loader active inline='centered'>Loading</Loader>}
@@ -40,15 +46,15 @@ const TrafficIncidents = ({ zip, countryCode, distance }) => {
                     {!loading && !error && (
                         incidents.length > 0 ? (
                             <List divided relaxed>
-                                {incidents.map((incident, index) => (
-                                    <List.Item key={index}>
-                                        <List.Icon name='warning sign' size='large' verticalAlign='middle' />
-                                        <List.Content>
-                                            <List.Header>{incident.type}</List.Header>
-                                            <List.Description>{incident.description}</List.Description>
-                                        </List.Content>
-                                    </List.Item>
-                                ))}
+                                {/*{incidents.map((incident, index) => (*/}
+                                {/*    <List.Item key={index}>*/}
+                                {/*        <List.Icon name='warning sign' size='large' verticalAlign='middle' />*/}
+                                {/*        <List.Content>*/}
+                                {/*            <List.Header>{incident.type}</List.Header>*/}
+                                {/*            <List.Description>{incident.description}</List.Description>*/}
+                                {/*        </List.Content>*/}
+                                {/*    </List.Item>*/}
+                                {/*))}*/}
                             </List>
                         ) : (
                             <Message info>No traffic incidents reported in this area.</Message>
