@@ -4,14 +4,15 @@ public class RiskAssessment {
     private double areaRiskValue;
     private String areaRiskText;
 
-    private int averageMiles;
-    private int daysOfRental;
+    private double customerRiskValue;
+    private String customerRiskText;
 
     private double overallRiskValue;
     private String overallRiskText;
 
-    private double customerRiskValue;
-    private String customerRiskText;
+    private int averageMiles;
+    private int daysOfRental;
+
     private int customerAge;
     private int customerYearsExp;
 
@@ -19,7 +20,7 @@ public class RiskAssessment {
     private Weather currentWeather;
     private byte[] image;
 
-    public RiskAssessment(double areaRiskValue, String areaRiskText, int averageMiles, int daysOfRental, double overallRiskValue, String overallRiskText, double customerRiskValue, String customerRiskText, int customerAge, int customerYearsExp, GeoLocation geoLocation, Weather currentWeather, byte[] image) {
+    public RiskAssessment(double overallRiskValue, String overallRiskText, double areaRiskValue, String areaRiskText, double customerRiskValue, String customerRiskText, int averageMiles, int daysOfRental, int customerAge, int customerYearsExp, GeoLocation geoLocation, Weather currentWeather, byte[] image) {
         this.areaRiskValue = areaRiskValue;
         this.areaRiskText = areaRiskText;
         this.averageMiles = averageMiles;
