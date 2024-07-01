@@ -17,15 +17,15 @@ const NavigationBar = () => {
                 <div className="desktop-menu">
                     <Menu.Item as={Link} to='/' active>Home</Menu.Item>
                     <Menu.Item as={Link} to ='/about'>About</Menu.Item>
-                    <Menu.Item as='a'>Services</Menu.Item>
+                    <Menu.Item as={Link} to='/evaluation'>Evaluation</Menu.Item>
                     <Menu.Item as={Link} to='/contact'>Contact</Menu.Item>
                 </div>
 
-                <div className="mobile-menu">
-                    <Menu.Item as='a'>
-                        <Icon name='bars' />
-                    </Menu.Item>
-                </div>
+                {/*<div className="mobile-menu">*/}
+                {/*    <Menu.Item as='a'>*/}
+                {/*        <Icon name='bars' />*/}
+                {/*    </Menu.Item>*/}
+                {/*</div>*/}
             </Container>
         </Menu>
     );
