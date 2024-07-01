@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate} from "react-router-dom";
 import { Card, Form, Button } from 'semantic-ui-react';
 import './RentalRiskForm.css';
+import WeatherDisplay from "./WeatherDisplay";
+import LocationImage from "./LocationImage";
+import WeatherCard from "./WeatherCard";
 
 const RentalRiskForm = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +17,7 @@ const RentalRiskForm = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [showResults, setShowResults] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e, { name, value }) => {
@@ -23,14 +27,16 @@ const RentalRiskForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-    // Redirect to the summary page with form data
-        navigate('/summary', { state: { formData } });
+
         try {
             // Here I would typically send the data to your backend
             console.log('Form submitted:', formData);
             // Simulating an API call
             await new Promise(resolve => setTimeout(resolve, 1000));
             setLoading(false);
+            //setShowResults(true);
+            // Redirect to the summary page with form data
+            navigate('/risk-evaluation', { state: { formData } });
         } catch (err) {
             setError('Failed to submit form: ' + err.message);
             setLoading(false);
@@ -99,6 +105,12 @@ const RentalRiskForm = () => {
                 </Card.Content>
             </Card>
             {error && <p className="error-message">{error}</p>}
+            {showResults && (
+                <div>
+                    <WeatherCard zip={formData.startZip} country={formData.startCountry} />
+                    <LocationImage zip={formData.startZip} milesPerDay={formData.averageDistance} />
+                </div>
+            )}
         </div>
     );
 };

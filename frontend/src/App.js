@@ -14,6 +14,7 @@ import LocationImage from './components/LocationImage';
 import TrafficIncidents from './components/TrafficIncidents';
 import Contact from "./components/Contact";
 import About from "./components/About";
+import RiskEvaluationDisplay from "./components/RiskEvaluationDisplay";
 
 function App() {
     return (
@@ -27,12 +28,14 @@ function App() {
                     <Route path='/evaluation' element={<EvaluationDisplay/>} />
                     {/* Replace Services with your services component */}
 
+                    {/*<Route path='/evaluation' element={<EvaluationDisplay />} />*/}
+                    <Route path='/risk-evaluation' element={<RiskEvaluationDisplay />} />
 
                     <Route path="/" element={
                         <>
-                            <WeatherDisplay />
-                            <LocationImage zip="90251" milesPerDay="33" />
-                            <TrafficIncidents zip="90251" milesPerDay={33} />
+                            {/*<WeatherDisplay />*/}
+                            {/*<LocationImage zip="90251" milesPerDay="33" />*/}
+                            {/*<TrafficIncidents zip="90251" milesPerDay={33} />*/}
                         </>
                     } />
                     <Route path="/summary" element={<Summary />} />
