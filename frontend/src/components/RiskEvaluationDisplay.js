@@ -28,7 +28,7 @@ const RiskEvaluationDisplay = () => {
                     setLoading(false);
                 })
                 .catch(error => {
-                    console.error("There was an error fetching the risk data!", error);
+                   // console.error("There was an error fetching the risk data!", error);
                     setLoading(false);
                 });
         } else {
