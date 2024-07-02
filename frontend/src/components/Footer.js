@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Segment, List } from 'semantic-ui-react';
+import {Container, Grid, Segment, List, Header} from 'semantic-ui-react';
 import './Footer.css';
 
 const Footer = () => (
@@ -26,10 +26,11 @@ const Footer = () => (
                         </List>
                     </Grid.Column>
                     <Grid.Column width={7}>
-                        <h4 className="ui inverted header">Sparta Insurance</h4>
-                        <p>
-                            Strength in Every Mile
-                        </p>
+                        <h3 className="ui inverted header"> Strength in Every Mile  </h3>
+                        <p>Sparta Insurance</p>
+                        <p>125 London Wall, Barbican</p>
+                        <p>London, EC2Y 5AS, United Kingdom</p>
+
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
