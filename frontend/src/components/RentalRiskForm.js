@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate} from "react-router-dom";
 import { Card, Form, Button } from 'semantic-ui-react';
 import './RentalRiskForm.css';
-import WeatherDisplay from "./WeatherDisplay";
 import LocationImage from "./LocationImage";
 import WeatherCard from "./WeatherCard";
 

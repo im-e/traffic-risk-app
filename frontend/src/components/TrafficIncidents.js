@@ -13,18 +13,13 @@ const TrafficIncidents = ({ zip, milesPerDay }) => {
                 setLoading(true);
                 setError(null);
 
-                // Log request parameters
-                console.log('Requesting incidents for:', { zip, milesPerDay });
                 const response = await axios.get('/incidents', {
                     params: { zip, milesPerDay }
                 });
-                // Log response data
-                console.log('Response data:', response.data);
-                // Access the incidents property from the response
+
                 setIncidents(response.data.incidents);
                 setLoading(false);
             } catch (err) {
-                console.error('Error fetching incidents:', err);
                 setError('Failed to load traffic incidents');
                 setLoading(false);
             }

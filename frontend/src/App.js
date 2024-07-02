@@ -6,12 +6,9 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import {Container} from 'semantic-ui-react';
 import NavigationBar from './components/NavigationBar';
-import RentalRiskForm from './components/RentalRiskForm';
 import EvaluationDisplay from "./components/EvaluationDisplay";
 import Summary from './components/Summary';
-import WeatherDisplay from './components/WeatherDisplay';
-import LocationImage from './components/LocationImage';
-import TrafficIncidents from './components/TrafficIncidents';
+
 import Contact from "./components/Contact";
 import About from "./components/About";
 import RiskEvaluationDisplay from "./components/RiskEvaluationDisplay";

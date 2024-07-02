@@ -5,12 +5,12 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    margin-top: 20px; /* Add some space between the weather display and the map */
+    margin-top: 20px;
 }
 
 .location-image-card {
     width: 100%;
-    max-width: 500px; /* Adjust this value as needed */
+    max-width: 500px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     overflow: hidden;
