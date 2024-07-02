@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
     return (
-        <Menu fixed='top' inverted>git
+        <Menu fixed='top' inverted>
             <Container>
                 <Menu.Item as='a' header>
                     <Image src={spartaLogo} alt="Sparta Global Logo" size='small' className="logo" />
