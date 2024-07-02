@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Container, Header, Segment, Grid } from 'semantic-ui-react';
+import React, {useState, useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
+import {Container, Header, Segment, Grid, Label} from 'semantic-ui-react';
 import WeatherCard from './WeatherCard';
 import LocationImage from './LocationImage';
 import TrafficIncidents from "./TrafficIncidents";
@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const RiskEvaluationDisplay = () => {
     const location = useLocation();
-    const { formData } = location.state || {};
+    const {formData} = location.state || {};
     const [riskData, setRiskData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ const RiskEvaluationDisplay = () => {
                     setLoading(false);
                 })
                 .catch(error => {
-                   // console.error("There was an error fetching the risk data!", error);
+                    // console.error("There was an error fetching the risk data!", error);
                     setLoading(false);
                 });
         } else {
@@ -44,30 +44,69 @@ const RiskEvaluationDisplay = () => {
         );
     }
 
+    const getRiskColor = (riskText) => {
+        switch (riskText) {
+            case 'Low Premium':
+                return 'green';
+            case 'High Premium':
+                return 'yellow';
+            case 'Medium Premium':
+                return 'orange';
+            case 'very high':
+                return 'red';
+            default:
+                return 'grey';
+        }
+    };
+
     return (
         <Container>
-            <Header as='h1' textAlign='center' style={{ marginTop: '2em', marginBottom: '1em' }}>
+            <Header as='h1' textAlign='center' style={{marginTop: '2em', marginBottom: '1em'}}>
                 Risk Evaluation Results
             </Header>
 
             <Grid columns={2} stackable>
                 <Grid.Row>
                     <Grid.Column>
-                        <WeatherCard zip={formData.startZip} country={formData.startCountry} />
+                        <WeatherCard zip={formData.startZip} country={formData.startCountry}/>
                     </Grid.Column>
                     <Grid.Column>
-                        <LocationImage zip={formData.startZip} milesPerDay={formData.averageDistance} />
+                        <LocationImage zip={formData.startZip} milesPerDay={formData.averageDistance}/>
                     </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <TrafficIncidents zip={formData.startZip} milesPerDay={formData.averageDistance} />
+                        <TrafficIncidents zip={formData.startZip} milesPerDay={formData.averageDistance}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
 
-            <Segment style={{ marginTop: '2em' }}>
+            {/*<Segment style={{ marginTop: '2em' }}>*/}
+            {/*    <Header as='h3'>Risk Assessment Summary</Header>*/}
+            {/*    <p>Based on the information provided:</p>*/}
+            {/*    <ul>*/}
+            {/*        <li>Starting Location: {formData.startZip}, {formData.startCountry}</li>*/}
+            {/*        <li>Rental Duration: {formData.numberOfDays} days</li>*/}
+            {/*        <li>Average Daily Distance: {formData.averageDistance} miles</li>*/}
+            {/*        <li>Driving Experience: {formData.drivingExperience} years</li>*/}
+            {/*        <li>Age: {formData.age} years old</li>*/}
+            {/*    </ul>*/}
+            {/*    {loading ? (*/}
+            {/*        <p>Loading risk data...</p>*/}
+            {/*    ) : riskData ? (*/}
+            {/*        <>*/}
+            {/*            <p>We determined that your Area Risk Value is {riskData.areaRiskValue}. This is considered {riskData.areaRiskText}.</p>*/}
+            {/*            <p>Furthermore, your Driver Risk Value is {riskData.customerRiskValue}. This is considered {riskData.customerRiskText}.</p>*/}
+            {/*            <p>Based on our calculations, the overall Risk Score is {riskData.overallRiskValue}. This entitles you to our {riskData.overallRiskText} rates.</p>*/}
+            {/*        </>*/}
+            {/*    ) : (*/}
+            {/*        <p>Unable to fetch risk data. Please try again later.</p>*/}
+            {/*    )}*/}
+            {/*</Segment>*/}
+
+
+            <Segment style={{marginTop: '2em'}}>
                 <Header as='h3'>Risk Assessment Summary</Header>
                 <p>Based on the information provided:</p>
                 <ul>
@@ -75,20 +114,44 @@ const RiskEvaluationDisplay = () => {
                     <li>Rental Duration: {formData.numberOfDays} days</li>
                     <li>Average Daily Distance: {formData.averageDistance} miles</li>
                     <li>Driving Experience: {formData.drivingExperience} years</li>
-                    <li>Age: {formData.age} years</li>
+                    <li>Age: {formData.age} years old</li>
                 </ul>
                 {loading ? (
                     <p>Loading risk data...</p>
                 ) : riskData ? (
-                    <>
-                        <p>We determined that your Area Risk Value is {riskData.areaRiskValue}. This is considered {riskData.areaRiskText}.</p>
-                        <p>Furthermore, your Driver Risk Value is {riskData.customerRiskValue}. This is considered {riskData.customerRiskText}.</p>
-                        <p>Based on our calculations, the overall Risk Score is {riskData.overallRiskValue}. This entitles you to our {riskData.overallRiskText} rates.</p>
-                    </>
+                    <Segment raised padded style={{
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '10px',
+                        boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+                    }}>
+                        <p style={{fontSize: '1.2em', fontWeight: 'bold', color: '#000306'}}>
+                            We determined that your Area Risk Value is <span
+                            style={{color: '#222223'}}>{riskData.areaRiskValue}</span>.
+                            This is considered <span style={{color: 'rgba(12,70,1,0.7)'}}>{riskData.areaRiskText}</span>.
+                        </p>
+
+                        <p style={{fontSize: '1.2em', fontWeight: 'bold', color: '#000306'}}>
+                            Furthermore, your Driver Risk Value is <span
+                            style={{color: '#222223'}}>{riskData.customerRiskValue}</span>.
+                            This is considered <span style={{color: '#db2828'}}>{riskData.customerRiskText}</span>.
+                        </p>
+
+                        <p style={{fontSize: '1.3em', fontWeight: 'bold', color: '#000306'}}>
+                            Based on our calculations, the overall Risk Score is <span
+                            style={{color: '#222223'}}>{riskData.overallRiskValue}</span>.
+                            This entitles you to our {' '}
+                            <Label size='large' color={getRiskColor(riskData.overallRiskText)}
+                                   style={{marginLeft: '5px'}}>
+                                {riskData.overallRiskText.toUpperCase()}
+                            </Label>
+                            {' '}
+                        </p>
+                    </Segment>
                 ) : (
                     <p>Unable to fetch risk data. Please try again later.</p>
                 )}
             </Segment>
+
         </Container>
     );
 };
