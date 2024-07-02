@@ -2,25 +2,15 @@ package com.sparta.trafficriskapp.service;
 
 import com.sparta.trafficriskapp.model.entity.Crash;
 import com.sparta.trafficriskapp.model.repository.CrashRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalDouble;
 
-public class AccidentAssessment {
-    private String city;
-    private List<Crash> crashData;
-    private double timeProbability;
-    private double cityDifference;
+@Service
+public class AccidentAssessor {
 
-    public AccidentAssessment(String city, CrashRepository repository) {
-        this.city = city;
-        this.crashData = repository.findByCity(city);
-        this.timeProbability = 0;
-        this.cityDifference = 0;
-    }
-
-    public int[] compareTemp(double temp, CrashRepository repository) {
+    public double getTempAverage(double temp, String city, CrashRepository repository) {
         double minTemp = 12;
         double maxTemp = 22;
 
@@ -32,13 +22,20 @@ public class AccidentAssessment {
         } else if (temp > maxTemp) {
             todayTemp = repository.findByCityAndTemperatureCGreaterThan(city, maxTemp);
         } else {
-            return new int[]{0, avTemp.size()};
+            return 0.5;
         }
 
-        return new int[]{todayTemp.size(), avTemp.size()};
+
+        int currentTempCrashes = todayTemp.size();
+        int avgTempCrashes = avTemp.size();
+        double percentChange = (avgTempCrashes == 0) ? 0 : ((currentTempCrashes - avgTempCrashes) / (double) avgTempCrashes);
+
+        return (percentChange + 1) / 2;
+
+
     }
 
-    public int[] comparePressure(double pressure, CrashRepository repository) {
+    public int[] comparePressure(double pressure, String city, CrashRepository repository) {
         double minPress = 75.23;
         double maxPress = 76.17;
 
@@ -56,7 +53,7 @@ public class AccidentAssessment {
         return new int[]{todayPress.size(), avPress.size()};
     }
 
-    public int[] compareHumidity(double humidity, CrashRepository repository) {
+    public int[] compareHumidity(double humidity, String city, CrashRepository repository) {
         double minHum = 40;
         double maxHum = 78;
 
@@ -74,7 +71,7 @@ public class AccidentAssessment {
         return new int[]{todayHum.size(), avHum.size()};
     }
 
-    public double[] compareHour(int hour, CrashRepository repository) {
+    public double[] compareHour(int hour, String city, CrashRepository repository) {
         List<Crash> accidentsHour = repository.findByCityAndHour(city, hour);
         OptionalDouble avHourOpt = repository.findByCity(city).stream().mapToDouble(Crash::getHour).average();
 
@@ -82,11 +79,11 @@ public class AccidentAssessment {
         double todayHour = accidentsHour.size();
         double percentChange = (todayHour - avHour) / avHour * 100;
 
-        timeProbability += percentChange;
+        //timeProbability += percentChange;
         return new double[]{avHour, todayHour, percentChange};
     }
 
-    public double[] compareMonth(int month, CrashRepository repository) {
+    public double[] compareMonth(int month, String city, CrashRepository repository) {
         List<Crash> accidentsMonth = repository.findByCityAndMonth(city, month);
         OptionalDouble avMonthOpt = repository.findByCity(city).stream().mapToDouble(Crash::getMonth).average();
 
@@ -94,11 +91,11 @@ public class AccidentAssessment {
         double todayMonth = accidentsMonth.size();
         double percentChange = (todayMonth - avMonth) / avMonth * 100;
 
-        timeProbability += percentChange;
+        //timeProbability += percentChange;
         return new double[]{avMonth, todayMonth, percentChange};
     }
 
-    public double[] compareDay(int day, CrashRepository repository) {
+    public double[] compareDay(int day, String city, CrashRepository repository) {
         List<Crash> accidentsDay = repository.findByCityAndDay(city, day);
         OptionalDouble avDayOpt = repository.findByCity(city).stream().mapToDouble(Crash::getDay).average();
 
@@ -106,36 +103,25 @@ public class AccidentAssessment {
         double todayDay = accidentsDay.size();
         double percentChange = (todayDay - avDay) / avDay * 100;
 
-        timeProbability += percentChange;
+        //timeProbability += percentChange;
         return new double[]{avDay, todayDay, percentChange};
     }
 
-    public double[] compareCityToState(CrashRepository repository) {
+    public double compareCityToState(String city, CrashRepository repository) {
         long totalCrashesInState = repository.count();
         long totalCities = repository.findAll().stream().map(Crash::getCity).distinct().count();
         double caliAv = (double) totalCrashesInState / totalCities;
 
-        double cityAccidents = crashData.size();
-        cityDifference = (cityAccidents - caliAv) / caliAv * 100;
+        List<Crash> cityCrashes = repository.findByCity(city);
+        double cityAccidents = cityCrashes.size();
+        return (cityAccidents - caliAv) / caliAv * 100;
 
-        return new double[]{caliAv, cityAccidents, cityDifference};
+
     }
 
-    public void getProbabilities(Optional<Integer> hour, Optional<Integer> day, Optional<Integer> month, CrashRepository repository) {
-        day.ifPresent(d -> compareDay(d, repository));
-        hour.ifPresent(h -> compareHour(h, repository));
-        month.ifPresent(m -> compareMonth(m, repository));
+    public double getCityAverageRisk(String city, CrashRepository repository) {
 
-        if (timeProbability < 0) {
-            System.out.printf("Based on the time and date, today your chance of an accident is %.2f%% less likely than normal in %s%n", Math.abs(timeProbability), city);
-        } else if (timeProbability > 0) {
-            System.out.printf("Based on the time and date, today your chance of an accident is %.2f%% more likely than normal in %s%n", timeProbability, city);
-        } else {
-            System.out.printf("Based on the time and date, today you have an average chance of an accident in %s%n", city);
-        }
-        timeProbability = 0;
-
-        double[] cityProb = compareCityToState(repository);
+        double cityDifference = compareCityToState(city, repository);
         if (cityDifference < 0) {
             System.out.printf("%s is %.2f%% less likely to have an accident than average in California%n", city, Math.abs(cityDifference));
         } else if (cityDifference > 0) {
@@ -143,6 +129,7 @@ public class AccidentAssessment {
         } else {
             System.out.printf("%s has the same accident risk as average in California%n", city);
         }
-        cityDifference = 0;
+        double cityRisk = (cityDifference + 100) / 200;
+        return Math.min(cityRisk, 1); //clamps to 1
     }
 }
