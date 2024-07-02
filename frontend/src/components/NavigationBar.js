@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Container, Icon, Image } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './NavigationBar.css';
-import spartaLogo from '../Sparta-Global-logo.png'
+import spartaLogo from '../images/sparta-white-text.png'
 
 
 import { Link } from 'react-router-dom';
@@ -11,23 +11,16 @@ const NavigationBar = () => {
     return (
         <Menu fixed='top' inverted>
             <Container>
-                <Menu.Item as='a' header>
-                    <Image src={spartaLogo} alt="Sparta Global Logo" size='small' className="logo" />
-                </Menu.Item>
-
                 <div className="desktop-menu">
-                    <Menu.Item as={Link} to='/' active>Home</Menu.Item>
-                    <Menu.Item as={Link} to ='/about'>About</Menu.Item>
+                    <Menu.Item as={Link} to='/' className="logo-item">
+                        <Image src={spartaLogo} alt="Sparta Global Logo" size='small' className="logo" />
+                    </Menu.Item>
+                    <Menu.Item as={Link} to='/'>Home</Menu.Item>
                     <Menu.Item as={Link} to='/evaluation'>Evaluation</Menu.Item>
                     <Menu.Item as={Link} to='/data-visualiser'>Data</Menu.Item>
                     <Menu.Item as={Link} to='/contact'>Contact</Menu.Item>
                 </div>
 
-                {/*<div className="mobile-menu">*/}
-                {/*    <Menu.Item as='a'>*/}
-                {/*        <Icon name='bars' />*/}
-                {/*    </Menu.Item>*/}
-                {/*</div>*/}
             </Container>
         </Menu>
     );

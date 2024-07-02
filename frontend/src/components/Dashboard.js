@@ -5,7 +5,9 @@ import image4 from '../dashboard/image-4 Monthly.jpeg'
 import image5 from '../dashboard/image-5 Weather.jpeg'
 import image6 from '../dashboard/image-6 Cities.jpeg'
 import React, { useState } from 'react';
-import { Card, Image, Pagination } from 'semantic-ui-react';
+import {Card, Header, Image, Pagination} from 'semantic-ui-react';
+import './Dashboard.css'
+import spartaLogo from "../images/sparta-black-text-white-bg.png";
 
 const imageData = [
     { id: 1, imageUrl: image1, header: 'Analysis', description: 'Accidents most commonly take place in moderate temperatures.' },
@@ -31,26 +33,34 @@ const Dashboard = () => {
     };
 
     return (
-        <div>
-            <Card.Group itemsPerRow={1}>
-                {slicedData.map((item) => (
-                    <Card key={item.id}>
-                        <Image src={item.imageUrl} wrapped ui={false} />
-                        <Card.Content>
-                            <Card.Header>{item.header}</Card.Header>
-                            <Card.Meta>{item.meta}</Card.Meta>
-                            <Card.Description>{item.description}</Card.Description>
-                        </Card.Content>
-                    </Card>
-                ))}
-            </Card.Group>
+        <div className="dashboard-container">
+            <div className="title">
+                <Header as='h1'>Data Visualiser</Header>
+                <Image src={spartaLogo} alt="Sparta Global Logo" size='small' className="logo"/>
+            </div>
 
-            {/* Pagination */}
-            <Pagination
-                activePage={activePage}
-                onPageChange={handlePaginationChange}
-                totalPages={Math.ceil(imageData.length / itemsPerPage)}
-            />
+            <div className='card-group'>
+                <Card.Group itemsPerRow={1}>
+                    {slicedData.map((item) => (
+                        <Card key={item.id}>
+                            <Image src={item.imageUrl} wrapped ui={false}/>
+                            <Card.Content>
+                                <Card.Header>{item.header}</Card.Header>
+                                <Card.Meta>{item.meta}</Card.Meta>
+                                <Card.Description>{item.description}</Card.Description>
+                            </Card.Content>
+                        </Card>
+                    ))}
+                </Card.Group>
+            </div>
+
+            <div className='pagination'>
+                <Pagination
+                    activePage={activePage}
+                    onPageChange={handlePaginationChange}
+                    totalPages={Math.ceil(imageData.length / itemsPerPage)}
+                />
+            </div>
         </div>
     );
 };
