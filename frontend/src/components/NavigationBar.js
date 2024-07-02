@@ -2,7 +2,8 @@ import React from 'react';
 import { Menu, Container, Icon, Image } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './NavigationBar.css';
-import spartaLogo from '/Users/dianag/Developer/traffic-risk-app/frontend/src/Sparta-Global-logo.png';
+import spartaLogo from '../Sparta-Global-logo.png'
+
 
 import { Link } from 'react-router-dom';
 

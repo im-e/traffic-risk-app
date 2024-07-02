@@ -1,7 +1,7 @@
 import image1 from '../dashboard/image-1 Temperature.jpeg'
 import image2 from '../dashboard/image-2 Hourly.jpeg'
 import image3 from '../dashboard/image-3 Road Feature.jpeg'
-import image4 from  '../dashboard/image-4 Monthly.jpeg'
+import image4 from '../dashboard/image-4 Monthly.jpeg'
 import image5 from '../dashboard/image-5 Weather.jpeg'
 import image6 from '../dashboard/image-6 Cities.jpeg'
 import React, { useState } from 'react';
