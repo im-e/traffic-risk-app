@@ -7,7 +7,7 @@ The application uses live traffic incident data, a weather forecast, intended us
 The area analysis is combined with a risk assessment on the driver, based on their age and years of driving experience to combine into an overall premium reccomendation for the car-rental provider to make a informed decicion on how to charge the renter.
 
 ## Key features 
-* Live data retrival from public api's (traffic, weather, geospatial)
+* Live data retrival from public APIs (traffic, weather, geospatial)
 * Statistic based risk assessment based on historical studies and live data
 * Driver risk profile, area risk profile
 * Insurance premium reccomendation based upon risk profiles 
