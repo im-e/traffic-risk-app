@@ -1,0 +1,24 @@
+.summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 20px;
+}
+
+.summary h2 {
+    margin-bottom: 20px;
+}
+
+.summary .ui.card {
+    width: 100%;
+    max-width: 600px;
+}
+
+.summary .ui.list .item {
+    padding: 10px 0;
+}
+
+.summary .ui.list .header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}

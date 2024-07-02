@@ -26,7 +26,7 @@ public class RiskAssessmentService {
     public RiskAssessment calculateRiskAssessment(GeoLocation geoLocation, Incidents incidents,
                                                   Weather currentWeather, byte[] image,
                                                   int distance, int days, int age, int yearsExp) {
-
+      
         List<Double> areaRiskScores = new ArrayList<>();
 
         //incidents
@@ -36,7 +36,7 @@ public class RiskAssessmentService {
         //distance+days usage risk level
         double usageRiskLevel = getUsageRisk(days, distance);
         areaRiskScores.add(usageRiskLevel);
-
+      
         //city to state risk
         double cityRiskLevel = getCityRisk(currentWeather);
         areaRiskScores.add(cityRiskLevel);

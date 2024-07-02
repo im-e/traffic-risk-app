@@ -3,7 +3,7 @@ import { Card, Image, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 import './LocationImage.css';
 
-const LocationImage = ({ zip, countryCode }) => {
+const LocationImage = ({ zip, milesPerDay }) => {
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(true);
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -14,7 +14,7 @@ const LocationImage = ({ zip, countryCode }) => {
             setLoading(true);
             setImageLoaded(false);
             setError(null);
-            const response = await axios.get(`/image?zip=${zip}&countryCode=${countryCode}`, {
+            const response = await axios.get(`/image?zip=${zip}&milesPerDay=${milesPerDay}`, {
                 responseType: 'blob'
             });
             const url = URL.createObjectURL(response.data);
@@ -24,7 +24,7 @@ const LocationImage = ({ zip, countryCode }) => {
             setError(`Failed to load image: ${err.message}`);
             setLoading(false);
         }
-    }, [zip, countryCode]);
+    }, [zip, milesPerDay]);
 
     useEffect(() => {
         fetchImage();
@@ -57,7 +57,7 @@ const LocationImage = ({ zip, countryCode }) => {
                         {imageUrl && (
                             <Image
                                 src={imageUrl}
-                                alt={`Map of ${zip}, ${countryCode}`}
+                                alt={`Map of ${zip}, ${milesPerDay}`}
                                 fluid
                                 onLoad={handleImageLoad}
                                 onError={handleImageError}
@@ -67,7 +67,7 @@ const LocationImage = ({ zip, countryCode }) => {
                     </Card.Description>
                 </Card.Content>
                 <Card.Content extra className="extra">
-                    ZIP: {zip}, Country: {countryCode}
+                    ZIP: {zip}, miles: {milesPerDay}
                 </Card.Content>
             </Card>
         </div>

@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
+import {Card, Image, Loader, Icon} from 'semantic-ui-react';
 import axios from 'axios';
-import './WeatherDisplay.css';
 
-import { Card, Icon, Image } from 'semantic-ui-react';
-
-const WeatherDisplay = () => {
+const WeatherCard = () => {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -25,7 +23,7 @@ const WeatherDisplay = () => {
     };
 
     useEffect(() => {
-        fetchWeather('10001', 'US');
+        fetchWeather('90251', 'US');
     }, []);
 
     const handleSubmit = (e) => {
@@ -36,23 +34,7 @@ const WeatherDisplay = () => {
     };
 
     return (
-        <div className="weather-display-wrapper">
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={zip}
-                    onChange={(e) => setZip(e.target.value)}
-                    placeholder="Enter ZIP code"
-                />
-                <input
-                    type="text"
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    placeholder="Enter country code (e.g., US)"
-                />
-                <button type="submit">Get Weather</button>
-            </form>
-
+        <div>
             {loading && <p>Loading weather data...</p>}
             {error && <p>{error}</p>}
             {weather && (
@@ -69,7 +51,7 @@ const WeatherDisplay = () => {
                         <Card.Description>
                             <p>
                                 Condition: {weather.current.condition.text}
-                                <Image src={weather.current.condition.icon} size='mini' spaced='left' />
+                                <Image src={weather.current.condition.icon} size='mini' spaced='left'/>
                             </p>
                             <p>Temperature: {weather.current.temp_c}°C / {weather.current.temp_f}°F</p>
                             <p>Wind: {weather.current.wind_kph} km/h, {weather.current.wind_dir}</p>
@@ -78,7 +60,7 @@ const WeatherDisplay = () => {
                         </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                        <Icon name='cloud' /> {weather.current.cloud} % cloud cover
+                        <Icon name='cloud'/> {weather.current.cloud} % cloud cover
                     </Card.Content>
                 </Card>
             )}
@@ -86,4 +68,4 @@ const WeatherDisplay = () => {
     );
 };
 
-export default WeatherDisplay;
+export default WeatherCard;
