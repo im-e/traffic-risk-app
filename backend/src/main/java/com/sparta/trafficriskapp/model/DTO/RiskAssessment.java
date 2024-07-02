@@ -1,8 +1,15 @@
 package com.sparta.trafficriskapp.model.DTO;
 
 public class RiskAssessment {
-    private double riskValue;
-    private String riskText;
+    private double areaRiskValue;
+    private String areaRiskText;
+
+    private double customerRiskValue;
+    private String customerRiskText;
+
+    private double overallRiskValue;
+    private String overallRiskText;
+
     private int averageMiles;
     private int daysOfRental;
 
@@ -13,20 +20,54 @@ public class RiskAssessment {
     private Weather currentWeather;
     private byte[] image;
 
-    public RiskAssessment(double riskValue, String riskText, int averageMiles, int daysOfRental, int customerAge, int customerYearsExp, GeoLocation geoLocation, Weather currentWeather, byte[] image) {
-        this.riskValue = riskValue;
-        this.riskText = riskText;
+    public RiskAssessment(double overallRiskValue, String overallRiskText, double areaRiskValue, String areaRiskText, double customerRiskValue, String customerRiskText, int averageMiles, int daysOfRental, int customerAge, int customerYearsExp, GeoLocation geoLocation, Weather currentWeather, byte[] image) {
+        this.areaRiskValue = areaRiskValue;
+        this.areaRiskText = areaRiskText;
         this.averageMiles = averageMiles;
         this.daysOfRental = daysOfRental;
-
+        this.overallRiskValue = overallRiskValue;
+        this.overallRiskText = overallRiskText;
+        this.customerRiskValue = customerRiskValue;
+        this.customerRiskText = customerRiskText;
         this.customerAge = customerAge;
         this.customerYearsExp = customerYearsExp;
-
         this.geoLocation = geoLocation;
         this.currentWeather = currentWeather;
         this.image = image;
-
     }
+
+    public double getCustomerRiskValue() {
+        return customerRiskValue;
+    }
+
+    public void setCustomerRiskValue(double customerRiskValue) {
+        this.customerRiskValue = customerRiskValue;
+    }
+
+    public String getCustomerRiskText() {
+        return customerRiskText;
+    }
+
+    public void setCustomerRiskText(String customerRiskText) {
+        this.customerRiskText = customerRiskText;
+    }
+
+    public double getOverallRiskValue() {
+        return overallRiskValue;
+    }
+
+    public void setOverallRiskValue(double overallRiskValue) {
+        this.overallRiskValue = overallRiskValue;
+    }
+
+    public String getOverallRiskText() {
+        return overallRiskText;
+    }
+
+    public void setOverallRiskText(String overallRiskText) {
+        this.overallRiskText = overallRiskText;
+    }
+
 
     public int getDaysOfRental() {
         return daysOfRental;
@@ -68,20 +109,20 @@ public class RiskAssessment {
         this.image = image;
     }
 
-    public double getRiskValue() {
-        return riskValue;
+    public double getAreaRiskValue() {
+        return areaRiskValue;
     }
 
-    public void setRiskValue(double riskValue) {
-        this.riskValue = riskValue;
+    public void setAreaRiskValue(double areaRiskValue) {
+        this.areaRiskValue = areaRiskValue;
     }
 
-    public String getRiskText() {
-        return riskText;
+    public String getAreaRiskText() {
+        return areaRiskText;
     }
 
-    public void setRiskText(String riskText) {
-        this.riskText = riskText;
+    public void setAreaRiskText(String areaRiskText) {
+        this.areaRiskText = areaRiskText;
     }
 
     public int getAverageMiles() {
