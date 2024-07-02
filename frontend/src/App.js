@@ -3,8 +3,8 @@
 
 import React from 'react';
 
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {Container} from 'semantic-ui-react';
 import NavigationBar from './components/NavigationBar';
 import RentalRiskForm from './components/RentalRiskForm';
 import EvaluationDisplay from "./components/EvaluationDisplay";
@@ -15,21 +15,22 @@ import TrafficIncidents from './components/TrafficIncidents';
 import Contact from "./components/Contact";
 import About from "./components/About";
 import RiskEvaluationDisplay from "./components/RiskEvaluationDisplay";
+import Footer from "./components/Footer"
 
 function App() {
     return (
         <Router>
             <Container className="App main-container">
-                <NavigationBar />
+                <NavigationBar/>
                 <Routes>
                     {/*<Route path='/' exact component={Home} />*/}
-                    <Route path='/about' element={<About/>} />
-                    <Route path='/contact' element={<Contact/>} />
-                    <Route path='/evaluation' element={<EvaluationDisplay/>} />
+                    <Route path='/about' element={<About/>}/>
+                    <Route path='/contact' element={<Contact/>}/>
+                    <Route path='/evaluation' element={<EvaluationDisplay/>}/>
                     {/* Replace Services with your services component */}
 
                     {/*<Route path='/evaluation' element={<EvaluationDisplay />} />*/}
-                    <Route path='/risk-evaluation' element={<RiskEvaluationDisplay />} />
+                    <Route path='/risk-evaluation' element={<RiskEvaluationDisplay/>}/>
 
                     <Route path="/" element={
                         <>
@@ -37,10 +38,12 @@ function App() {
                             {/*<LocationImage zip="90251" milesPerDay="33" />*/}
                             {/*<TrafficIncidents zip="90251" milesPerDay={33} />*/}
                         </>
-                    } />
-                    <Route path="/summary" element={<Summary />} />
+                    }/>
+                    <Route path="/summary" element={<Summary/>}/>
                 </Routes>
             </Container>
+            <div style={{ marginTop: '2em' }}></div> {/* Spacer div */}
+            <Footer></Footer>
         </Router>
     );
 }

@@ -41,25 +41,25 @@ const TrafficIncidents = ({ zip, milesPerDay }) => {
                     Within the {zip} zipcode, based on a {milesPerDay} miles per day average
                 </Card.Meta>
                 <Card.Description>
-                    {loading && <Loader active inline='centered'>Loading</Loader>}
-                    {error && <Message negative>{error}</Message>}
-                    {!loading && !error && (
-                        incidents.length > 0 ? (
-                            <List divided relaxed>
-                                {/*{incidents.map((incident, index) => (*/}
-                                {/*    <List.Item key={index}>*/}
-                                {/*        <List.Icon name='warning sign' size='large' verticalAlign='middle' />*/}
-                                {/*        <List.Content>*/}
-                                {/*            <List.Header>{incident.type}</List.Header>*/}
-                                {/*            <List.Description>{incident.description}</List.Description>*/}
-                                {/*        </List.Content>*/}
-                                {/*    </List.Item>*/}
-                                {/*))}*/}
-                            </List>
-                        ) : (
-                            <Message info>No traffic incidents reported in this area.</Message>
-                        )
-                    )}
+                    {/*{loading && <Loader active inline='centered'>Loading</Loader>}*/}
+                    {/*{error && <Message negative>{error}</Message>}*/}
+                    {/*{!loading && !error && (*/}
+                    {/*    incidents.length > 0 ? (*/}
+                    {/*        <List divided relaxed>*/}
+                    {/*            {incidents.map((incident, index) => (*/}
+                    {/*                <List.Item key={index}>*/}
+                    {/*                    <List.Icon name='warning sign' size='large' verticalAlign='middle' />*/}
+                    {/*                    <List.Content>*/}
+                    {/*                        <List.Header>{incident.type}</List.Header>*/}
+                    {/*                        <List.Description>{incident.description}</List.Description>*/}
+                    {/*                    </List.Content>*/}
+                    {/*                </List.Item>*/}
+                    {/*            ))}*/}
+                    {/*        </List>*/}
+                    {/*    ) : (*/}
+                    {/*        <Message info>No traffic incidents reported in this area.</Message>*/}
+                    {/*    )*/}
+                    {/*)}*/}
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>

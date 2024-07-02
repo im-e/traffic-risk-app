@@ -1,0 +1,34 @@
+.footer {
+    background-color: #1b1c1d;
+    color: #ffffff;
+}
+
+.footer .ui.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer .ui.grid {
+    width: 100%;
+}
+
+.footer .ui.grid > .column {
+    text-align: left;
+}
+
+.footer .ui.list a {
+    color: #ffffff; /* Links in footer should be white */
+    margin-bottom: 0.5em;
+}
+
+.footer .ui.list a:hover {
+    color: #2185d0; /* Change link color on hover */
+}
+
+/*  footer responsiveness */
+@media (max-width: 768px) {
+    .footer .ui.grid {
+        flex-direction: column;
+    }
+}
