@@ -16,6 +16,7 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import RiskEvaluationDisplay from "./components/RiskEvaluationDisplay";
 import Footer from "./components/Footer"
+import Dashboard from "./components/Dashboard";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                     }/>
                     <Route path="/summary" element={<Summary/>}/>
                 </Routes>
+                <Dashboard></Dashboard>
             </Container>
             <div style={{ marginTop: '2em' }}></div> {/* Spacer div */}
             <Footer></Footer>
