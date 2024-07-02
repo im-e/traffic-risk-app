@@ -31,8 +31,6 @@ public class AccidentAssessor {
         double percentChange = (avgTempCrashes == 0) ? 0 : ((currentTempCrashes - avgTempCrashes) / (double) avgTempCrashes);
 
         return (percentChange + 1) / 2;
-
-
     }
 
     public int[] comparePressure(double pressure, String city, CrashRepository repository) {
@@ -107,7 +105,7 @@ public class AccidentAssessor {
         return new double[]{avDay, todayDay, percentChange};
     }
 
-    public double compareCityToState(String city, CrashRepository repository) {
+    private double compareCityToState(String city, CrashRepository repository) {
         long totalCrashesInState = repository.count();
         long totalCities = repository.findAll().stream().map(Crash::getCity).distinct().count();
         double caliAv = (double) totalCrashesInState / totalCities;
@@ -122,13 +120,6 @@ public class AccidentAssessor {
     public double getCityAverageRisk(String city, CrashRepository repository) {
 
         double cityDifference = compareCityToState(city, repository);
-        if (cityDifference < 0) {
-            System.out.printf("%s is %.2f%% less likely to have an accident than average in California%n", city, Math.abs(cityDifference));
-        } else if (cityDifference > 0) {
-            System.out.printf("%s is %.2f%% more likely to have an accident than average in California%n", city, cityDifference);
-        } else {
-            System.out.printf("%s has the same accident risk as average in California%n", city);
-        }
         double cityRisk = (cityDifference + 100) / 200;
         return Math.min(cityRisk, 1); //clamps to 1
     }

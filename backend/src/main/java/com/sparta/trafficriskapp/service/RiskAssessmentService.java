@@ -31,22 +31,18 @@ public class RiskAssessmentService {
 
         //incidents
         double incidentRiskLevel = getIncidentRisk(incidents, distance);
-        System.out.println("incidentRiskLevel: "+ incidentRiskLevel);
         areaRiskScores.add(incidentRiskLevel);
 
         //distance+days usage risk level
         double usageRiskLevel = getUsageRisk(days, distance);
-        System.out.println("usageRiskLevel: "+ usageRiskLevel);
         areaRiskScores.add(usageRiskLevel);
 
         //city to state risk
         double cityRiskLevel = getCityRisk(currentWeather);
-        System.out.println("cityRiskLevel: " + cityRiskLevel);
         areaRiskScores.add(cityRiskLevel);
 
         //city temp risk
         double tempRiskLevel = getTempRisk(currentWeather);
-        System.out.println("tempRiskLevel: " + tempRiskLevel);
         areaRiskScores.add(tempRiskLevel);
 
         //area risk level
