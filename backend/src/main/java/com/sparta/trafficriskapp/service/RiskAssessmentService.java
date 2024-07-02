@@ -4,44 +4,78 @@ import com.sparta.trafficriskapp.model.DTO.GeoLocation;
 import com.sparta.trafficriskapp.model.DTO.Incidents;
 import com.sparta.trafficriskapp.model.DTO.RiskAssessment;
 import com.sparta.trafficriskapp.model.DTO.Weather;
+import com.sparta.trafficriskapp.model.repository.CrashRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 public class RiskAssessmentService {
 
+    private final AccidentAssessor accidentAssessor;
+    private final CrashRepository crashRepository;
+
+    public RiskAssessmentService(AccidentAssessor accidentAssessor,
+                                 CrashRepository crashRepository) {
+        this.accidentAssessor = accidentAssessor;
+        this.crashRepository = crashRepository;
+    }
+
     public RiskAssessment calculateRiskAssessment(GeoLocation geoLocation, Incidents incidents,
                                                   Weather currentWeather, byte[] image,
                                                   int distance, int days, int age, int yearsExp) {
+      
+        List<Double> areaRiskScores = new ArrayList<>();
 
-        //area risk level
-        double areaRiskLevel;
         //incidents
         double incidentRiskLevel = getIncidentRisk(incidents, distance);
-        //distance+days usage risk level
-        //double usageRiskLevel = getUsageRisk(days, distance);
-        //weather risk
-        //double weatherRiskLevel = getWeatherRisk(currentWeather);
-        areaRiskLevel = incidentRiskLevel;
-        String areaRiskText = getRiskText(incidentRiskLevel);
+        areaRiskScores.add(incidentRiskLevel);
 
-        //driver risk
+        //distance+days usage risk level
+        double usageRiskLevel = getUsageRisk(days, distance);
+        areaRiskScores.add(usageRiskLevel);
+      
+        //city to state risk
+        double cityRiskLevel = getCityRisk(currentWeather);
+        areaRiskScores.add(cityRiskLevel);
+
+        //city temp risk
+        double tempRiskLevel = getTempRisk(currentWeather);
+        areaRiskScores.add(tempRiskLevel);
+
+        //area risk level
+        double areaRiskLevel = 0;
+        for(double score : areaRiskScores)
+        {
+            areaRiskLevel += score;
+        }
+        areaRiskLevel = areaRiskLevel / areaRiskScores.size();
+        String areaRiskText = getRiskText(areaRiskLevel);
+
+        //customer risk
         double ageRiskLevel = getAgeRiskLevel(age); //age
         double expRiskLevel = getExpRiskLevel(yearsExp); //experience
-        double driverRiskLevel = (ageRiskLevel + expRiskLevel) / 2;
-        String driverRiskText = getRiskText(driverRiskLevel);
+        double customerRiskLevel = (ageRiskLevel + expRiskLevel) / 2;
+        String customerRiskText = getRiskText(customerRiskLevel);
 
         //overall risk
-        double overallRiskLevel = 1;
-        String overallRiskText = "Gold Premium";
-
+        double overallRiskLevel = (customerRiskLevel + areaRiskLevel) / 2;
+        String overallRiskText = getOverallRiskText(overallRiskLevel);
 
         return new RiskAssessment(
                 overallRiskLevel,overallRiskText,
                 areaRiskLevel, areaRiskText,
-                driverRiskLevel, driverRiskText,
+                customerRiskLevel, customerRiskText,
                 distance, age, yearsExp, days, geoLocation, currentWeather, image);
+    }
+
+    private static String getOverallRiskText(double risk)
+    {
+        if(risk <= .33) return "Low Premium";
+        else if(risk <= .66) return "Medium Premium";
+        else return "High Premium";
     }
 
     private static String getRiskText(double riskValue)
@@ -56,24 +90,69 @@ public class RiskAssessmentService {
         };
     }
 
+    private double getTempRisk(Weather weather)
+    {
+        return accidentAssessor.getTempAverage(weather.getCurrent().getTemp_c(), weather.getLocation().getName(), crashRepository);
+    }
+
+    private double getCityRisk(Weather weather)
+    {
+        return accidentAssessor.getCityAverageRisk(weather.getLocation().getName(), crashRepository);
+    }
+
+
+    private static double getUsageRisk(int days, int distance)
+    {
+        //https://www.kbb.com/car-advice/average-miles-driven-per-year/
+        //The average driver in the U.S. drives 39.7 miles per day, according to the most recent Department of Transportation statistics.
+        double distanceRisk = 0;
+        if      (distance <= 5)     distanceRisk = 0;
+        else if (distance <= 10)    distanceRisk = 0.2;
+        else if (distance <= 20)    distanceRisk = 0.3;
+        else if (distance <= 39)    distanceRisk = 0.5;
+        else if (distance <= 50)    distanceRisk = 0.7;
+        else if (distance <= 70)    distanceRisk = 0.85;
+        else distanceRisk = 1;
+
+        //https://www.autorentalnews.com/10203346/length-of-rental-results-take-first-dip-yoy-since-pandemic
+        //average days of rental in cali is 16.2
+
+        double dayRisk = 0;
+        if      (days <= 5)  dayRisk = 0;
+        else if (days <= 10) dayRisk = 0.25;
+        else if (days <= 16) dayRisk = 0.5;
+        else if (days <= 24) dayRisk = 0.75;
+        else dayRisk = 1;
+
+        return (distanceRisk + dayRisk) / 2;
+    }
+
     private static double getIncidentRisk(Incidents incidents, int distance) {
         double areaRiskLevel = 0;
         double distanceMultiplier;
-        double incidentRiskLevel = 0.01;
+        double maxIncidentRiskLevel = 1.0;
+        double baseIncidentRiskLevel = 0.01;
 
-        if(distance < 5)        distanceMultiplier = 1;
-        else if(distance < 10)  distanceMultiplier = .9;
-        else if (distance < 15) distanceMultiplier = .85;
-        else if (distance < 25) distanceMultiplier = .75;
-        else if (distance < 30) distanceMultiplier = .70;
-        else                    distanceMultiplier = .60;
+        if (distance <= 5)        distanceMultiplier = 1;
+        else if (distance <= 10)  distanceMultiplier = 0.9;
+        else if (distance <= 15)  distanceMultiplier = 0.75;
+        else if (distance <= 25)  distanceMultiplier = 0.6;
+        else if (distance <= 30)  distanceMultiplier = 0.5;
+        else if (distance <= 49)  distanceMultiplier = 0.3;
+        else                      distanceMultiplier = 0.2;
 
+        if (!incidents.getIncidents().isEmpty()) {
+            double totalIncidents = incidents.getIncidents().size();
+            double incidentRisk = baseIncidentRiskLevel * totalIncidents;
 
-        if(!incidents.getIncidents().isEmpty()) {
-            double incidentRisk = incidentRiskLevel * incidents.getIncidents().size();
-            areaRiskLevel =  incidentRisk * distanceMultiplier;
+            // Normalize incident risk to make sure it doesn't exceed the maxIncidentRiskLevel
+            double normalizedIncidentRisk = Math.min(incidentRisk, maxIncidentRiskLevel);
+
+            areaRiskLevel = normalizedIncidentRisk * distanceMultiplier;
         }
-        return areaRiskLevel;
+
+        // Ensure the area risk level doesn't exceed 1
+        return Math.min(areaRiskLevel, 1.0);
     }
 
 
@@ -97,7 +176,7 @@ public class RiskAssessmentService {
         else if (age <= 24) return  0.8;
         else if(age <= 34) return 0.6;
         else if(age <= 44) return 0.4;
-        else if(age <= 59) return 0.3;
+        else if(age <= 59) return 0.2;
         else if(age >= 65) return 0.4;
         else return 0.5;
     }

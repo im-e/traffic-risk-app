@@ -1,0 +1,84 @@
+Project Scope:  
+
+Project Objectives:   
+Develop an application that allows users to assess car rental insurance premiums based on their personal information and rental location. The app will demonstrate how car insurance rates vary depending on geographical accident rates, geolocation information, driving experience, and age. Users will input this information directly into the app's UI. The application will then provide a risk assessment, displaying a rating scale that indicates the likely insurance premium. 
+
+Deliverables: 
+Prototype of the car rental insurance premium rating application 
+
+Risk assessment module (backend) 
+
+Data integration with reliable datasets 
+
+Integrated prediction models  
+
+Intuitive user interface 
+
+Optimised performance and security features 
+
+Client presentation materials 
+
+
+
+
+
+Milestones: 
+	Application Prototype: The production of a functional prototype of the insurance application. 
+
+	The prototype allows users to input a location (zip code of where they plan on renting within), how long they need the rental for and personal 		information. Then, the user will receive an estimated premium, based on risk factors. 
+
+	Risk Assessment Module (backend): The production of a risk assessment module that evaluates and displays rating premiums(categories). 
+	The module accurately assesses risk based on user inputs (zipcode) and risk factors of that area, like the climate around that time of year and accident rates- provides a rating to users 
+
+	Integration of Prediction Models: The prediction calculator has been integrated into the application to predict premium ratings. 
+	The models provide accurate predictions based on historical data. 
+
+	User Interface Enhancement: An intuitive and responsive UI is produced. 
+	Users can easily input data, view ratings, and understand the application features. 
+
+	Performance and Security Optimisation: A secure and efficient application is produced. 
+	The app handles user data securely, performs well, and follows best practices. 
+
+ 
+
+ 
+
+Acceptance Criteria: 
+Stakeholder approval of deliverables during Sprint Review. 
+
+The application meets performance standards – fast and reliable performance with minimal downtime (3-4 users supported at a time, with a load time of 200ms) 
+
+The application meets accuracy standards – accurate and relevant ratings/predictions are provided. 
+
+The application meets Security standards – there are no security breaches or areas of vulnerability. 
+
+The application meets usability standards 
+
+The client presentation effectively conveys project insights (including a Product Demonstration, Learning outcomes, Challenges and Solutions, and Team Collaboration). 
+
+ 
+
+Exclusions: 
+We will not include vehicle type as a factor – this may be worthwhile looking at in future, as commercial vehicles may be more accident-prone in certain areas. However, it is out of scope for this project. 
+
+Focus on California – to produce an MVP, we are narrowing our scope to zipcodes in California.   
+
+Performance and scale – the app will be able to support 3 to 4 users at this time. This may be scaled in future, however, for the purpose of the demonstration this is sufficient. 
+
+ 
+
+Assumptions: 
+Availability of Data from Third Party Sources 
+
+ 
+
+Work Breakdown Structure: 
+Conduct Project Initiation, Planning and Requirements Gathering 
+Set up of Environment and Development of Prototype 
+Data Cleansing  
+Integration of Prediction Models 
+Implementation of User Interface 
+Mid-Project Review and Continued Development 
+Testing and Quality Assurance 
+Final Development and Deployment Preparation 
+Deployment and Project Closure 
