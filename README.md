@@ -1,7 +1,9 @@
 # Car-Rental Risk Assessment Application
 ## Overview
 A web-based application for car-rental services to assess the risk of a driver, their planned vehicle usage, the area in which they will be driving and provide a premium reccomendation based on the risk analysis.
+
 The application uses live traffic incident data, a weather forecast, intended usage information, to compare to statistics and studies to provide a risk analysis for an area.
+
 The area analysis is combined with a risk assessment on the driver, based on their age and years of driving experience to combine into an overall premium reccomendation for the car-rental provider to make a informed decicion on how to charge the renter.
 
 ## Key features 
@@ -22,7 +24,8 @@ The area analysis is combined with a risk assessment on the driver, based on the
 * Java Developer (Frontend - React): Irina (irinagall)
 
 ## Summary
-The project had 7 working days until completion and presentation for the client. As the client was insurance based, we angled the purpose of our application to assess the risk for the purpose of producing a premium reccomendation for a rental company. We ended up using different open source datasets and APIs such as TomTom's API for traffic incidents, OpenWeatherMap's API for GeoSpatial information and WeatherAPI for Current forecast information.
+The project had 7 working days until completion and presentation for the client. As the client was insurance based, we angled the purpose of our application to assess the risk for the purpose of producing a premium reccomendation for a rental company. 
+We ended up using different open source datasets and APIs such as TomTom's API for traffic incidents, OpenWeatherMap's API for GeoSpatial information and WeatherAPI for Current forecast information.
 
 
 
