@@ -5,7 +5,7 @@ import { Container, Header, Segment } from 'semantic-ui-react';
 const EvaluationDisplay = () => {
     return (
         <Container>
-            <Header as='h1' textAlign='center' style={{ marginTop: '2em', marginBottom: '1em' }}>
+            <Header as='h1' textAlign='center'>
                 Risk Evaluation
             </Header>
 
