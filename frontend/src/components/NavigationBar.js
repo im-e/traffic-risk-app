@@ -18,6 +18,7 @@ const NavigationBar = () => {
                     <Menu.Item as={Link} to='/' active>Home</Menu.Item>
                     <Menu.Item as={Link} to ='/about'>About</Menu.Item>
                     <Menu.Item as={Link} to='/evaluation'>Evaluation</Menu.Item>
+                    <Menu.Item as={Link} to='/data-visualiser'>Data</Menu.Item>
                     <Menu.Item as={Link} to='/contact'>Contact</Menu.Item>
                 </div>
 

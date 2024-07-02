@@ -19,17 +19,16 @@ const Footer = () => (
                     <Grid.Column width={3}>
                         <h4 className="ui inverted header">Services</h4>
                         <List link inverted>
-                            <List.Item as='a'>Pre-Order</List.Item>
+                            <List.Item as='a'>Developments</List.Item>
                             <List.Item as='a'>FAQ</List.Item>
                             <List.Item as='a'>How To Access</List.Item>
-                            <List.Item as='a'>Future Developments</List.Item>
+                            <List.Item as='a'>Support us</List.Item>
                         </List>
                     </Grid.Column>
                     <Grid.Column width={7}>
-                        <h4 className="ui inverted header">Footer Header</h4>
+                        <h4 className="ui inverted header">Sparta Insurance</h4>
                         <p>
-                            Extra space inside the footer to help re-engage users.
-                            Like a motto perhaps..
+                            Strength in Every Mile
                         </p>
                     </Grid.Column>
                 </Grid.Row>

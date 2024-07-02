@@ -26,11 +26,11 @@ function App() {
                 <Routes>
                     {/*<Route path='/' exact component={Home} />*/}
                     <Route path='/about' element={<About/>}/>
-                    <Route path='/contact' element={<Contact/>}/>
                     <Route path='/evaluation' element={<EvaluationDisplay/>}/>
+                    <Route path='/data-visualiser' element={<Dashboard />} />
+                    <Route path='/contact' element={<Contact/>}/>
                     {/* Replace Services with your services component */}
 
-                    {/*<Route path='/evaluation' element={<EvaluationDisplay />} />*/}
                     <Route path='/risk-evaluation' element={<RiskEvaluationDisplay/>}/>
 
                     <Route path="/" element={
@@ -42,7 +42,6 @@ function App() {
                     }/>
                     <Route path="/summary" element={<Summary/>}/>
                 </Routes>
-                <Dashboard></Dashboard>
             </Container>
             <div style={{ marginTop: '2em' }}></div> {/* Spacer div */}
             <Footer></Footer>
