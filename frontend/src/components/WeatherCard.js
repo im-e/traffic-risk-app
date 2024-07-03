@@ -2,12 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {Card, Image, Loader, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 
-const WeatherCard = () => {
+const WeatherCard = ({ zipCode, country }) => {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [zip, setZip] = useState('');
-    const [countryCode, setCountryCode] = useState('');
 
     const fetchWeather = async (zip, countryCode) => {
         try {
@@ -16,26 +14,21 @@ const WeatherCard = () => {
             setWeather(response.data);
             setLoading(false);
         } catch (err) {
-            console.error('Error details:', err.response ? err.response.data : err.message);
             setError('Failed to fetch weather data: ' + (err.response ? err.response.data : err.message));
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchWeather('90251', 'US');
-    }, []);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (zip && countryCode) {
-            fetchWeather(zip, countryCode);
+        if (zipCode && country) {
+            fetchWeather(zipCode, country);
         }
-    };
+    }, [zipCode, country]);
+
 
     return (
         <div>
-            {loading && <p>Loading weather data...</p>}
+            {loading && <Loader active={loading}>Loading weather data...</Loader>}
             {error && <p>{error}</p>}
             {weather && (
 

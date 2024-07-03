@@ -65,7 +65,7 @@ const RiskEvaluationDisplay = () => {
             <Grid columns={2} stackable>
                 <Grid.Row>
                     <Grid.Column>
-                        <WeatherCard zip={formData.startZip} country={formData.startCountry}/>
+                        <WeatherCard zipCode={formData.startZip} country={formData.startCountry}/>
                     </Grid.Column>
                     <Grid.Column>
                         <LocationImage zip={formData.startZip} milesPerDay={formData.averageDistance}/>
