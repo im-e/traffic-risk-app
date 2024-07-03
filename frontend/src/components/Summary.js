@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Card, List } from 'semantic-ui-react';
+import {Card, Header, Image, List} from 'semantic-ui-react';
 import './Summary.css';
+import spartaLogo from "../images/sparta-black-text-white-bg.png";
 
 const Summary = () => {
     const location = useLocation();
@@ -12,6 +13,7 @@ const Summary = () => {
     }
 
     return (
+
         <div className="summary">
             <h2>Summary of Your Input</h2>
             <Card fluid>
