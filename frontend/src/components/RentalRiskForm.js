@@ -19,7 +19,7 @@ const RentalRiskForm = () => {
     const navigate = useNavigate();
 
     const handleChange = (e, { name, value }) => {
-        // For numeric fields, ensure the value is positive
+
         if (['numberOfDays', 'averageDistance', 'drivingExperience', 'age'].includes(name)) {
             value = Math.max(0, parseInt(value) || 0).toString();
         }
@@ -31,13 +31,9 @@ const RentalRiskForm = () => {
         setLoading(true);
 
         try {
-            // Here I would typically send the data to your backend
-            console.log('Form submitted:', formData);
-            // Simulating an API call
             await new Promise(resolve => setTimeout(resolve, 1000));
             setLoading(false);
-            //setShowResults(true);
-            // Redirect to the summary page with form data
+
             navigate('/risk-evaluation', { state: { formData } });
         } catch (err) {
             setError('Failed to submit form: ' + err.message);

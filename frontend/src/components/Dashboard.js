@@ -38,7 +38,7 @@ const Dashboard = () => {
                 <Header as='h1'>Data Visualiser</Header>
                 <Image src={spartaLogo} alt="Sparta Global Logo" size='small' className="logo"/>
             </div>
-
+            <h3> Please see below a representation of traffic risk stats for California based on data from the past 8 years that was used to underpin our calculations. </h3>
             <div className='card-group'>
                 <Card.Group itemsPerRow={1}>
                     {slicedData.map((item) => (
