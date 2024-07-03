@@ -22,10 +22,21 @@ body, html, #root {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 .main-container {
   flex: 1;
+}
+
+
+@media (max-width: 500px) {
+  .content-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 84px;
+    padding-bottom: 80px;
+  }
 }

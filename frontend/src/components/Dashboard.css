@@ -1,0 +1,32 @@
+.dashboard-container .title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .ui.header {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
+
+.card-group {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center; /* Centers the card group horizontally */
+    align-items: center; /* Centers the card group vertically */
+
+    .image {
+        width: 100%;
+    }
+
+    .ui {
+        width: 70%;
+        margin: 0 auto; /* Centers the UI element within its container */
+    }
+}
+
+.pagination
+{
+    display: flex;
+    justify-content: center; /* Centers the pagination horizontally */
+}

@@ -1,23 +1,56 @@
+
+.desktop-menu {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.desktop-menu .item{
+    padding: 0.7rem !important;
+    justify-content: center;
+    text-align: center !important;
+}
+
 .ui.menu {
-    min-height: 30px !important;
+    min-height: 60px !important;
+}
+
+.ui.menu .item{
+    min-width: 120px !important;
+    font-size: 1.1rem;
+}
+
+.ui.menu .item.logo-item {
+    padding-right: 4rem !important; /* Increased to account for the ::before element */
+    padding-left: 4rem !important;
+    position: relative; /* Ensure positioning context for absolute ::before */
 }
 
 .ui.menu .item img.logo {
-    width: 80px !important;
+    margin-top: 0;
+    width: 100px !important;
     height: auto !important;
 }
 
-.ui.container {
-    padding-left: 1em !important;
-    padding-right: 1em !important;
-}
 
-@media (min-width: 768px) {
-    .desktop-menu {
+@media (max-width: 500px) {
+    .ui.menu {
         display: flex;
+        flex-wrap: nowrap;
     }
-    .mobile-menu {
-        display: none;
+
+    .ui.menu .item {
+        height: 6rem;
+        flex: 1 1 0;
+        width: auto;
+        font-size: 1.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ui.menu .item.logo-item {
+        display: none; /* Hide the logo item on small screens */
     }
 }
 

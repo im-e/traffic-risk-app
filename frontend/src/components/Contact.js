@@ -1,9 +1,13 @@
 import React from 'react';
+
 import {Segment, Grid, Header, Button, Form} from "semantic-ui-react";
+
+import './Contact.css'
+
 
 const Contact = () => {
     return (
-        <div>
+        <div className="contact">
             <h1>Contact Us</h1>
             <Grid textAlign='center' padded='very' >
                 <p>We'd love to hear from you! Whether you have a question about features, services, need a demo, or anything else, our team is ready to answer all your questions.</p>

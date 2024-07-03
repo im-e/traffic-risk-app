@@ -20,8 +20,7 @@ function App() {
                 <div className="content-wrap">
                     <Container className="App main-container">
                         <Routes>
-                            {/*<Route path='/' exact component={Home} />*/}
-                            <Route path='/about' element={<About/>}/>
+                            <Route path='/' element={<About/>}/>
                             <Route path='/evaluation' element={<EvaluationDisplay/>}/>
                             <Route path='/data-visualiser' element={<Dashboard />} />
                             <Route path='/contact' element={<Contact/>}/>
