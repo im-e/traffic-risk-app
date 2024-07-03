@@ -28,7 +28,6 @@ const RiskEvaluationDisplay = () => {
                     setLoading(false);
                 })
                 .catch(error => {
-                    // console.error("There was an error fetching the risk data!", error);
                     setLoading(false);
                 });
         } else {
@@ -52,10 +51,8 @@ const RiskEvaluationDisplay = () => {
                 return 'yellow';
             case 'Medium Premium':
                 return 'orange';
-            case 'very high':
-                return 'red';
             default:
-                return 'grey';
+                return 'golden';
         }
     };
 
@@ -82,28 +79,7 @@ const RiskEvaluationDisplay = () => {
                 </Grid.Row>
             </Grid>
 
-            {/*<Segment style={{ marginTop: '2em' }}>*/}
-            {/*    <Header as='h3'>Risk Assessment Summary</Header>*/}
-            {/*    <p>Based on the information provided:</p>*/}
-            {/*    <ul>*/}
-            {/*        <li>Starting Location: {formData.startZip}, {formData.startCountry}</li>*/}
-            {/*        <li>Rental Duration: {formData.numberOfDays} days</li>*/}
-            {/*        <li>Average Daily Distance: {formData.averageDistance} miles</li>*/}
-            {/*        <li>Driving Experience: {formData.drivingExperience} years</li>*/}
-            {/*        <li>Age: {formData.age} years old</li>*/}
-            {/*    </ul>*/}
-            {/*    {loading ? (*/}
-            {/*        <p>Loading risk data...</p>*/}
-            {/*    ) : riskData ? (*/}
-            {/*        <>*/}
-            {/*            <p>We determined that your Area Risk Value is {riskData.areaRiskValue}. This is considered {riskData.areaRiskText}.</p>*/}
-            {/*            <p>Furthermore, your Driver Risk Value is {riskData.customerRiskValue}. This is considered {riskData.customerRiskText}.</p>*/}
-            {/*            <p>Based on our calculations, the overall Risk Score is {riskData.overallRiskValue}. This entitles you to our {riskData.overallRiskText} rates.</p>*/}
-            {/*        </>*/}
-            {/*    ) : (*/}
-            {/*        <p>Unable to fetch risk data. Please try again later.</p>*/}
-            {/*    )}*/}
-            {/*</Segment>*/}
+
 
 
             <Segment style={{marginTop: '2em'}}>
