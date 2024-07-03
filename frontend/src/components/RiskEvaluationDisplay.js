@@ -65,7 +65,7 @@ const RiskEvaluationDisplay = () => {
             <Grid columns={2} stackable>
                 <Grid.Row>
                     <Grid.Column>
-                        <WeatherCard zip={formData.startZip} country={formData.startCountry}/>
+                        <WeatherCard zipCode={formData.startZip}/>
                     </Grid.Column>
                     <Grid.Column>
                         <LocationImage zip={formData.startZip} milesPerDay={formData.averageDistance}/>
@@ -86,7 +86,7 @@ const RiskEvaluationDisplay = () => {
                 <Header as='h3'>Risk Assessment Summary</Header>
                 <p>Based on the information provided:</p>
                 <ul>
-                    <li>Starting Location: {formData.startZip}, {formData.startCountry}</li>
+                    <li>Starting Location: {formData.startZip}, US </li>
                     <li>Rental Duration: {formData.numberOfDays} days</li>
                     <li>Average Daily Distance: {formData.averageDistance} miles</li>
                     <li>Driving Experience: {formData.drivingExperience} years</li>

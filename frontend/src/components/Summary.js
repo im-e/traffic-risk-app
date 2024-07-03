@@ -19,7 +19,7 @@ const Summary = () => {
                     <List>
                         <List.Item>
                             <List.Header>Start Journey Location</List.Header>
-                            {formData.startZip}, {formData.startCountry}
+                            {formData.startZip}
                         </List.Item>
                         <List.Item>
                             <List.Header>Number of Days</List.Header>
