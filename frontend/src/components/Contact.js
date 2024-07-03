@@ -35,15 +35,6 @@ const Contact = () => {
                         <p> For General enquiries:</p>
                         <p><strong>Phone:</strong> +44 (0) 207 048 4022</p>
                         <p><strong>Email:</strong> contact@spartaglobal.com</p>
-                        <p> Our team:</p>
-                        <p><strong>Emma Craig: </strong> ecraig@spartaglobal.com</p>
-                        <p><strong>Eve Burton: </strong> eburton@spartaglobal.com</p>
-                        <p><strong>Gabriella Sanchez: </strong> gsanchez@spartaglobal.com</p>
-                        <p><strong>Imogen Burgham: </strong> iburgham@spartaglobal.com</p>
-                        <p><strong>Irina Diana Gall: </strong> igall@spartaglobal.com</p>
-                        <p><strong>Morgan Stewart:</strong> mstewart@spartaglobal.com</p>
-                        <p><strong>Sadie Joelson-White:</strong> sjoelson-white@spartaglobal.com</p>
-
                     </Grid.Column>
                 </Grid>
 
