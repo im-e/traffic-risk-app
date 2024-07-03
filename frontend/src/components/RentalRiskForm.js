@@ -8,7 +8,6 @@ import WeatherCard from "./WeatherCard";
 const RentalRiskForm = () => {
     const [formData, setFormData] = useState({
         startZip: '',
-        startCountry: '',
         numberOfDays: '',
         averageDistance: '',
         drivingExperience: '',
@@ -57,14 +56,7 @@ const RentalRiskForm = () => {
                                 value={formData.startZip}
                                 onChange={handleChange}
                             />
-                            <Form.Input
-                                fluid
-                                label='Country Code'
-                                placeholder='Enter country code (e.g., US)'
-                                name='startCountry'
-                                value={formData.startCountry}
-                                onChange={handleChange}
-                            />
+
                         </Form.Group>
                         <Form.Input
                             label='Rental required (no. of days)'

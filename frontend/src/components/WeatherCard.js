@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Card, Image, Loader, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 
-const WeatherCard = ({ zipCode, country }) => {
+const WeatherCard = ({ zipCode }) => {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ const WeatherCard = ({ zipCode, country }) => {
     const fetchWeather = async (zip, countryCode) => {
         try {
             setLoading(true);
-            const response = await axios.get(`/weather?zip=${zip}&countryCode=${countryCode}`);
+            const response = await axios.get(`/weather?zip=${zip}`);
             setWeather(response.data);
             setLoading(false);
         } catch (err) {
@@ -20,10 +20,10 @@ const WeatherCard = ({ zipCode, country }) => {
     };
 
     useEffect(() => {
-        if (zipCode && country) {
-            fetchWeather(zipCode, country);
+        if (zipCode) {
+            fetchWeather(zipCode);
         }
-    }, [zipCode, country]);
+    }, [zipCode]);
 
 
     return (
