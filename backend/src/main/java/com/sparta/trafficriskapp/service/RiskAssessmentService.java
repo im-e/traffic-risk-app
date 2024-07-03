@@ -30,9 +30,10 @@ public class RiskAssessmentService {
                                                   Weather currentWeather, byte[] image,
                                                   int distance, int days, int age, int yearsExp) throws AgeInvalidException, DrivingExperienceHigherThanAgeException, DrivingExperienceInvalidException {
 
-        int legalDriverAge = 18;
+        int legalDriverAge = 16;
+        int legalRentingAge = 18;
 
-        if (age < legalDriverAge) {
+        if (age < legalRentingAge) {
             throw new AgeInvalidException();
         }
 
