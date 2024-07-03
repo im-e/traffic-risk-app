@@ -30,7 +30,16 @@ public class AccidentAssessor {
         int avgTempCrashes = avTemp.size();
         double percentChange = (avgTempCrashes == 0) ? 0 : ((currentTempCrashes - avgTempCrashes) / (double) avgTempCrashes);
 
-        return (percentChange + 1) / 2;
+        double pc =  (percentChange + 1) / 2;
+        if (pc < 0.5) {
+            return 0.5;
+        }
+        if (pc > 0.5) {
+            return 0.7;
+        }
+        else{
+            return 0.6;
+        }
     }
 
     public int[] comparePressure(double pressure, String city, CrashRepository repository) {

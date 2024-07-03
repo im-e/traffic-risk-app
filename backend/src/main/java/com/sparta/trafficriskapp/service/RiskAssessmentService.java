@@ -47,31 +47,27 @@ public class RiskAssessmentService {
             throw new DrivingExperienceInvalidException();
         }
 
-        List<Double> areaRiskScores = new ArrayList<>();
-
         //incidents
         double incidentRiskLevel = getIncidentRisk(incidents, distance);
-        areaRiskScores.add(incidentRiskLevel);
+        System.out.println("incident: " + incidentRiskLevel);
 
         //distance+days usage risk level
         double usageRiskLevel = getUsageRisk(days, distance);
-        areaRiskScores.add(usageRiskLevel);
+        System.out.println("usage: " + usageRiskLevel);
       
         //city to state risk
         double cityRiskLevel = getCityRisk(currentWeather);
-        areaRiskScores.add(cityRiskLevel);
+        System.out.println("city: " + cityRiskLevel);
 
         //city temp risk
         double tempRiskLevel = getTempRisk(currentWeather);
-        areaRiskScores.add(tempRiskLevel);
+        System.out.println("temp: " + tempRiskLevel);
 
         //area risk level
-        double areaRiskLevel = 0;
-        for(double score : areaRiskScores)
-        {
-            areaRiskLevel += score;
-        }
-        areaRiskLevel = areaRiskLevel / areaRiskScores.size();
+        double areaRiskLevel = incidentRiskLevel + usageRiskLevel + cityRiskLevel;
+        areaRiskLevel = areaRiskLevel / 3;
+        System.out.println("area: " + areaRiskLevel);
+
         String areaRiskText = getRiskText(areaRiskLevel);
 
         //customer risk
@@ -101,12 +97,13 @@ public class RiskAssessmentService {
     private static String getRiskText(double riskValue)
     {
         //assuming riskValue 0 -> 1
-        return switch ((int) (riskValue * 4)) {
-            case 0 -> "Very Low Risk";      // <0.25
-            case 1 -> "Low Risk";           // <0.5
-            case 2 -> "Average Risk";       // <0.75
-            case 3 -> "High Risk";          // <1
-            default -> "Very High Risk";    // 1
+        return switch ((int) (riskValue * 5)) {
+            case 0 -> "Very Low Risk";      // 0 to <0.2
+            case 1 -> "Low Risk";           // 0.2 to <0.4
+            case 2 -> "Average Risk";       // 0.4 to <0.6
+            case 3 -> "High Risk";          // 0.6 to <0.8
+            case 4 -> "Very High Risk";     // 0.8 to 1
+            default -> "Invalid Risk Value"; // For any value outside 0-1 range
         };
     }
 
@@ -138,10 +135,10 @@ public class RiskAssessmentService {
         //average days of rental in cali is 16.2
 
         double dayRisk = 0;
-        if      (days <= 5)  dayRisk = 0;
-        else if (days <= 10) dayRisk = 0.25;
-        else if (days <= 16) dayRisk = 0.5;
-        else if (days <= 24) dayRisk = 0.75;
+        if      (days <= 5)  dayRisk = 0.3;
+        else if (days <= 10) dayRisk = 0.5;
+        else if (days <= 16) dayRisk = 0.75;
+        else if (days <= 24) dayRisk = 0.9;
         else dayRisk = 1;
 
         return (distanceRisk + dayRisk) / 2;
@@ -153,13 +150,13 @@ public class RiskAssessmentService {
         double maxIncidentRiskLevel = 1.0;
         double baseIncidentRiskLevel = 0.01;
 
-        if (distance <= 5)        distanceMultiplier = 1;
-        else if (distance <= 10)  distanceMultiplier = 0.9;
-        else if (distance <= 15)  distanceMultiplier = 0.75;
-        else if (distance <= 25)  distanceMultiplier = 0.6;
-        else if (distance <= 30)  distanceMultiplier = 0.5;
-        else if (distance <= 49)  distanceMultiplier = 0.3;
-        else                      distanceMultiplier = 0.2;
+        if (distance <= 15)        distanceMultiplier = 1;
+        else if (distance <= 20)  distanceMultiplier = 0.9;
+        else if (distance <= 30)  distanceMultiplier = 0.85;
+        else if (distance <= 35)  distanceMultiplier = 0.8;
+        else if (distance <= 40)  distanceMultiplier = 0.75;
+        else if (distance <= 70)  distanceMultiplier = 0.7;
+        else                      distanceMultiplier = 0.6;
 
         if (!incidents.getIncidents().isEmpty()) {
             double totalIncidents = incidents.getIncidents().size();
