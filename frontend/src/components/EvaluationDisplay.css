@@ -1,0 +1,10 @@
+.evaluation-container .title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .ui.header {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
