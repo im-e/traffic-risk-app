@@ -4,6 +4,9 @@ import com.sparta.trafficriskapp.model.DTO.GeoLocation;
 import com.sparta.trafficriskapp.model.DTO.Incidents;
 import com.sparta.trafficriskapp.model.DTO.RiskAssessment;
 import com.sparta.trafficriskapp.model.DTO.Weather;
+import com.sparta.trafficriskapp.model.exception.AgeInvalidException;
+import com.sparta.trafficriskapp.model.exception.DrivingExperienceHigherThanAgeException;
+import com.sparta.trafficriskapp.model.exception.DrivingExperienceInvalidException;
 import com.sparta.trafficriskapp.model.repository.CrashRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,24 @@ public class RiskAssessmentService {
 
     public RiskAssessment calculateRiskAssessment(GeoLocation geoLocation, Incidents incidents,
                                                   Weather currentWeather, byte[] image,
-                                                  int distance, int days, int age, int yearsExp) {
-      
+                                                  int distance, int days, int age, int yearsExp) throws AgeInvalidException, DrivingExperienceHigherThanAgeException, DrivingExperienceInvalidException {
+
+        int legalDriverAge = 18;
+
+        if (age < legalDriverAge) {
+            throw new AgeInvalidException();
+        }
+
+        if (yearsExp > age)
+        {
+            throw new DrivingExperienceHigherThanAgeException();
+        }
+
+        if ((age - yearsExp) < legalDriverAge)
+        {
+            throw new DrivingExperienceInvalidException();
+        }
+
         List<Double> areaRiskScores = new ArrayList<>();
 
         //incidents

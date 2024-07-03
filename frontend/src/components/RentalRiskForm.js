@@ -19,6 +19,10 @@ const RentalRiskForm = () => {
     const navigate = useNavigate();
 
     const handleChange = (e, { name, value }) => {
+        // For numeric fields, ensure the value is positive
+        if (['numberOfDays', 'averageDistance', 'drivingExperience', 'age'].includes(name)) {
+            value = Math.max(0, parseInt(value) || 0).toString();
+        }
         setFormData({ ...formData, [name]: value });
     };
 
@@ -65,6 +69,7 @@ const RentalRiskForm = () => {
                             name='numberOfDays'
                             value={formData.numberOfDays}
                             onChange={handleChange}
+                            min="1"
                         />
                         <Form.Input
                             label='Average distance per day (no. of miles)'
@@ -73,6 +78,7 @@ const RentalRiskForm = () => {
                             name='averageDistance'
                             value={formData.averageDistance}
                             onChange={handleChange}
+                            min="1"
                         />
                         <h3>Your Details</h3>
                         <Form.Input
@@ -82,6 +88,7 @@ const RentalRiskForm = () => {
                             name='drivingExperience'
                             value={formData.drivingExperience}
                             onChange={handleChange}
+                            min="0"
                         />
                         <Form.Input
                             label='Age (no. of years)'
@@ -90,6 +97,7 @@ const RentalRiskForm = () => {
                             name='age'
                             value={formData.age}
                             onChange={handleChange}
+                            min="18"
                         />
                         <Button type='submit' primary loading={loading}>Submit</Button>
                     </Form>

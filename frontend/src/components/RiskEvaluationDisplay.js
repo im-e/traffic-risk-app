@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {Container, Header, Segment, Grid, Label} from 'semantic-ui-react';
+import {Container, Header, Segment, Grid, Label, Message} from 'semantic-ui-react';
 import WeatherCard from './WeatherCard';
 import LocationImage from './LocationImage';
 import TrafficIncidents from "./TrafficIncidents";
@@ -11,6 +11,7 @@ const RiskEvaluationDisplay = () => {
     const {formData} = location.state || {};
     const [riskData, setRiskData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (formData) {
@@ -29,6 +30,11 @@ const RiskEvaluationDisplay = () => {
                 })
                 .catch(error => {
                     setLoading(false);
+                    if (error.response && error.response.status === 400) {
+                        setError(error.response.data.message);
+                    } else {
+                        setError("An unexpected error occurred. Please try again later.");
+                    }
                 });
         } else {
             setLoading(false);
@@ -79,9 +85,6 @@ const RiskEvaluationDisplay = () => {
                 </Grid.Row>
             </Grid>
 
-
-
-
             <Segment style={{marginTop: '2em'}}>
                 <Header as='h3'>Risk Assessment Summary</Header>
                 <p>Based on the information provided:</p>
@@ -94,7 +97,12 @@ const RiskEvaluationDisplay = () => {
                 </ul>
                 {loading ? (
                     <p>Loading risk data...</p>
-                ) : riskData ? (
+                )  : error ? (
+                    <Message negative>
+                        <Message.Header>Error</Message.Header>
+                        <p>{error}</p>
+                    </Message>
+                )   : riskData ? (
                     <Segment raised padded style={{
                         backgroundColor: '#f8f8f8',
                         borderRadius: '10px',

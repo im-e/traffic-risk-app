@@ -4,6 +4,9 @@ import com.sparta.trafficriskapp.model.DTO.GeoLocation;
 import com.sparta.trafficriskapp.model.DTO.Incidents;
 import com.sparta.trafficriskapp.model.DTO.RiskAssessment;
 import com.sparta.trafficriskapp.model.DTO.Weather;
+import com.sparta.trafficriskapp.model.exception.AgeInvalidException;
+import com.sparta.trafficriskapp.model.exception.DrivingExperienceHigherThanAgeException;
+import com.sparta.trafficriskapp.model.exception.DrivingExperienceInvalidException;
 import com.sparta.trafficriskapp.service.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -68,7 +71,10 @@ public class LocationDataController {
             @RequestParam String zip, @RequestParam int milesPerDay,
             @RequestParam int days,  @RequestParam int yearsExp,
             @RequestParam int age)
-    {
+            throws AgeInvalidException,
+            DrivingExperienceHigherThanAgeException,
+            DrivingExperienceInvalidException {
+
         GeoLocation location = geoLocService.getCurrentLocation(zip);
         Incidents incidents = trafficService.getIncidents(location.getLat(), location.getLon(), milesPerDay);
         Weather weather = weatherService.getCurrentWeather(location.getZip());
